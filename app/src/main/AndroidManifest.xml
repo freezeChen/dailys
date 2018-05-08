@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.frozen.dailys">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:name="com.frozen.dailys.base.BaseApplication"
         android:allowBackup="true"
@@ -22,7 +25,7 @@
 
         <activity android:name=".MainActivity" />
 
-        <service android:name=".components.service.ImService" />
+        <service android:name=".component.service.IMService" />
     </application>
 
 </manifest>

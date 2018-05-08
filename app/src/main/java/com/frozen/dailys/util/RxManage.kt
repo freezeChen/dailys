@@ -1,4 +1,4 @@
-package com.frozen.dailys.components.util
+package com.frozen.dailys.util
 
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable

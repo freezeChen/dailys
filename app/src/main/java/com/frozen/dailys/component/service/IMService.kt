@@ -1,9 +1,11 @@
-package com.frozen.dailys.components.service
+package com.frozen.dailys.component.service
 
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import com.frozen.dailys.components.util.RxManage
+import com.frozen.dailys.component.im.IMManager
+import com.frozen.dailys.component.im.IMObservable
+import com.frozen.dailys.util.RxManage
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import okhttp3.*
@@ -11,7 +13,7 @@ import okio.ByteString
 
 
 @Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
-class ImService : Service(), RxManage {
+class IMService : Service(), RxManage {
     override var mCompositeDisposable: CompositeDisposable? = null
 
     private var reConnTimes = 0
@@ -24,12 +26,12 @@ class ImService : Service(), RxManage {
         OkHttpClient()
     }
 
+
     private val request by lazy {
         Request.Builder()
                 .url("ws://47.106.137.3:8088/daily/socket")
                 .build()
     }
-
 
     override fun onBind(intent: Intent?): IBinder? {
         return null
@@ -37,14 +39,13 @@ class ImService : Service(), RxManage {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
 
-
         mListener = object : WebSocketListener() {
-
             override fun onOpen(webSocket: WebSocket?, response: Response?) {
                 super.onOpen(webSocket, response)
                 Logger.e("onOpen", response)
                 mWebSocket = webSocket
                 reConnTimes = 0
+                IMManager.newInstance().start(mWebSocket)
             }
 
             override fun onFailure(webSocket: WebSocket?, t: Throwable?, response: Response?) {
@@ -63,12 +64,15 @@ class ImService : Service(), RxManage {
 
             override fun onMessage(webSocket: WebSocket?, text: String?) {
                 super.onMessage(webSocket, text)
+                IMObservable.newInstance().setNewData(text ?: "")
                 Logger.e("onFailure", text)
             }
 
             override fun onMessage(webSocket: WebSocket?, bytes: ByteString?) {
                 super.onMessage(webSocket, bytes)
+                IMObservable.newInstance().setNewData(bytes?.toString() ?: "")
                 Logger.e("onFailure", bytes.toString())
+
             }
 
             override fun onClosed(webSocket: WebSocket?, code: Int, reason: String?) {
@@ -79,7 +83,8 @@ class ImService : Service(), RxManage {
 
 
         mClient.newWebSocket(request, mListener)
-        mClient.dispatcher().executorService().shutdown()
+
+
         return super.onStartCommand(intent, flags, startId)
 
     }
@@ -88,6 +93,7 @@ class ImService : Service(), RxManage {
     override fun onDestroy() {
         super.onDestroy()
         unDisposable()
+        mClient.dispatcher().executorService().shutdown()
     }
 
 }

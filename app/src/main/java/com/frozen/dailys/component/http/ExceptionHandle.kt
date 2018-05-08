@@ -1,19 +1,19 @@
-package com.frozen.dailys.components.http
+package com.frozen.dailys.component.http
 
 import android.net.ParseException
 import com.bumptech.glide.load.HttpException
 import com.frozen.dailys.R
 import com.frozen.dailys.base.BaseApplication
-import com.frozen.dailys.components.models.ResponseThrowable
+import com.frozen.dailys.model.ResponseThrowable
 import com.google.gson.JsonParseException
 import org.json.JSONException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import javax.net.ssl.SSLHandshakeException
 
-class ExceptonHandle {
+class ExceptionHandle {
     companion object {
-        fun handleException(e: Throwable) {
+        fun handleException(e: Throwable): ResponseThrowable {
             val ex = ResponseThrowable(throwable = e)
             return with(ex) {
                 when (e) {

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_left"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/image_head_icon"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:src="@drawable/ic_head_default" />
+
+        <TextView
+            android:id="@+id/tv_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/image_head_icon"
+            app:layout_constraintLeft_toRightOf="@id/image_head_icon"
+            app:layout_constraintTop_toTopOf="@id/image_head_icon"
+            tools:text="mingzi " />
+
+
+        <TextView
+            android:id="@+id/tv_content"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="40dp"
+            android:background="#35cc14"
+            android:text="wenziwenzenziwenziwen "
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintLeft_toRightOf="@id/tv_name"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tv_name"
+            app:layout_constraintWidth_default="wrap" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/layout_right"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/image_head_icon_right"
+            android:layout_width="46dp"
+            android:layout_height="46dp"
+            android:src="@drawable/ic_head_default"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+
+            android:id="@+id/tv_name_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@id/image_head_icon_right"
+            app:layout_constraintRight_toLeftOf="@id/image_head_icon_right"
+            app:layout_constraintTop_toTopOf="@id/image_head_icon_right"
+            tools:text="mingzi " />
+
+
+        <TextView
+            android:id="@+id/tv_content_right"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:background="#35cc14"
+            android:text="wenziwenzenziwenziwen "
+            app:layout_constraintHorizontal_bias="100"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toLeftOf="@id/tv_name_right"
+            app:layout_constraintTop_toTopOf="@id/tv_name_right"
+            app:layout_constraintWidth_default="wrap" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

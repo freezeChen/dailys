@@ -37,10 +37,12 @@ dependencies {
     implementation "com.android.support:appcompat-v7:$android_suppot_version"
     implementation "com.android.support:design:$android_suppot_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+    implementation "org.jetbrains.anko:anko-commons:$anko_version"
     implementation 'com.qmuiteam:qmui:1.1.0'
     implementation 'me.yokeyword:fragmentation:1.3.3'
     implementation 'com.orhanobut:logger:2.1.1'
 
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
     implementation 'io.reactivex.rxjava2:rxkotlin:2.1.0'
     implementation 'com.squareup.retrofit2:retrofit:2.3.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.3.0'

@@ -1,62 +1,88 @@
 package com.frozen.dailys.ui.message
 
-import android.content.res.ColorStateList
+
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.frozen.dailys.R
 import com.frozen.dailys.base.BaseFragment
-import com.qmuiteam.qmui.widget.dialog.QMUIDialog
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
-import com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButtonDrawable
+import com.frozen.dailys.component.DataLab
+import com.frozen.dailys.component.im.ChatPresenter
+import com.frozen.dailys.model.FInfo
+import com.frozen.dailys.model.Info
+import com.frozen.dailys.ui.message.adpter.MessageDetailAdapter
+import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_message_detail.*
 
-class MessageDetailFragment : BaseFragment() {
+
+/**
+ * Created by csc on 2018/4/26.
+ */
+class MessageDetailFragment : BaseFragment(), MessageDetailContract.View {
+
+    private lateinit var mPresenter: MessageDetailContract.Presenter
+
+    private val mAdapter by lazy {
+        MessageDetailAdapter()
+    }
 
     companion object {
         fun newInstance(): BaseFragment {
+            val args = Bundle()
             val fragment = MessageDetailFragment()
+            fragment.arguments = args
             return fragment
         }
     }
 
-
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         val view = inflater.inflate(R.layout.fragment_message_detail, container, false)
+        mPresenter = ChatPresenter(this)
+        mPresenter.start()
 
         return view
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        edt_input.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
 
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-            }
-
-        })
-        btn_send.setOnClickListener {
-            if (edt_input.text.isEmpty()) {
-                QMUIDialog.EditTextDialogBuilder(context)
-                        .setDefaultText("请输入用户名称")
-                        .create()
-            } else {
-
-            }
-
+        recycler_view.apply {
+            layoutManager = LinearLayoutManager(context)
+            setHasFixedSize(true)
+            adapter = mAdapter
         }
 
+
+        send.setOnClickListener {
+            val message = input.text.toString()
+            val temp = Info()
+            temp.FUserID = fuserid.text.toString()
+            temp.FInfo = FInfo(FTOID = "2", FContent = message)
+
+            sendMessage(temp)
+        }
+
+        link.setOnClickListener {
+
+        }
     }
 
+    override fun newMessage(info: Info?) {
+        info?.let {
+            mAdapter.addData(it)
+        }
+    }
+
+    override fun sendMessage(info: Info) {
+        mPresenter.sendInfo(info)
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mPresenter.stop()
+    }
 }

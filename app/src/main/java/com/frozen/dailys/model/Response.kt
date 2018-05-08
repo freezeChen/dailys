@@ -1,4 +1,4 @@
-package com.frozen.dailys.components.models
+package com.frozen.dailys.model
 
 open class Response<T> {
     var code: Int = 0

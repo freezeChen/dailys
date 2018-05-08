@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundButton
+        android:id="@+id/tv_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:clickable="false"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="7dp"
+        android:textColor="#ffffff"
+        android:textSize="12dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:qmui_backgroundColor="#dfdfdf"
+        app:qmui_borderWidth="0dp"
+        app:qmui_isRadiusAdjustBounds="false"
+        app:qmui_radius="5dp"
+        tools:text="2018-04-08 13:13" />
+
+
+    <com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginRight="18dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/tv_time"
+        app:qmui_borderColor="#ababab"
+        app:qmui_borderWidth="0.5dp"
+        app:qmui_isRadiusAdjustBounds="false"
+        app:qmui_radius="5dp">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="13dp"
+            android:singleLine="true"
+            android:textColor="#323232"
+            android:textSize="15dp"
+            tools:text="客户:厦门必兴下达的采购订单" />
+
+        <ImageView
+            android:id="@+id/image_face"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_alignLeft="@+id/tv_title"
+            android:layout_below="@+id/tv_title"
+            android:layout_marginTop="14dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/qmui_icon_notify_done" />
+
+        <TextView
+            android:id="@+id/tv_orderNum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/image_face"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="2dp"
+            android:layout_toRightOf="@+id/image_face"
+            android:singleLine="true"
+            android:textColor="#787878"
+            android:textSize="12dp"
+            tools:text="订单编号:BX13-123-01" />
+
+        <TextView
+            android:id="@+id/tv_orderTime"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_orderNum"
+            android:layout_below="@+id/tv_orderNum"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="true"
+            android:textColor="#787878"
+            android:textSize="12dp"
+            tools:text="交货期限:2018-01-02" />
+
+        <TextView
+            android:id="@+id/tv_orderNote"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/tv_orderNum"
+            android:layout_below="@+id/tv_orderTime"
+            android:layout_marginRight="12dp"
+            android:layout_marginTop="5dp"
+            android:maxLines="3"
+            android:minLines="2"
+            android:textColor="#787878"
+            android:textSize="12dp"
+            tools:text="订单备注:请按提供的材料,来执行检测,并且每周提供报表." />
+
+
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_below="@+id/tv_orderNote"
+            android:layout_marginTop="30dp"
+            android:background="#ababab" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/line"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="10dp"
+                android:text="详情"
+                android:textColor="#787878"
+                android:textSize="15dp" />
+
+
+        </FrameLayout>
+
+
+    </com.qmuiteam.qmui.widget.roundwidget.QMUIRoundRelativeLayout>
+
+</android.support.constraint.ConstraintLayout>
