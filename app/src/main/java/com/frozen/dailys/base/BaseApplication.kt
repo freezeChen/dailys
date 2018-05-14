@@ -13,6 +13,7 @@ class BaseApplication : Application() {
 
     companion object {
         lateinit var mBaseApplicationContext: Context
+
     }
 
     override fun onCreate() {

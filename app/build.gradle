@@ -6,12 +6,14 @@ apply plugin: 'kotlin-android-extensions'
 
 apply plugin: 'kotlin-kapt'
 
+//apply plugin: 'androidx.navigation.safeargs'
+
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
     defaultConfig {
         applicationId "com.frozen.dailys"
         minSdkVersion 21
-        targetSdkVersion rootProject.ext.targetSdkVersion
+        targetSdkVersion rootProject.ext.targetsdkVersion
         versionCode 1
         versionName "1.0"
 //        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -38,6 +40,21 @@ dependencies {
     implementation "com.android.support:design:$android_suppot_version"
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation "org.jetbrains.anko:anko-commons:$anko_version"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
+    implementation "android.arch.navigation:navigation-fragment-ktx:$nav_version" // use -ktx for Kotlin
+    implementation "android.arch.navigation:navigation-ui-ktx:$nav_version" // use -ktx for Kotlin
+    // optional - Test helpers
+    androidTestImplementation "android.arch.navigation:navigation-testing:$nav_version"
+
+    implementation "android.arch.work:work-runtime-ktx:$work_version" // use -ktx for Kotlin
+
+    // optional - Firebase JobDispatcher support
+    implementation "android.arch.work:work-firebase:$work_version"
+
+    // optional - Test helpers
+    androidTestImplementation "android.arch.work:work-testing:$work_version"
+
     implementation 'com.qmuiteam:qmui:1.1.0'
     implementation 'me.yokeyword:fragmentation:1.3.3'
     implementation 'com.orhanobut:logger:2.1.1'
