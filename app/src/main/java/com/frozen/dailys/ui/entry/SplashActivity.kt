@@ -17,7 +17,6 @@ class SplashActivity : BaseActivity(), RxManage {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
-        Logger.e("ssss")
         val times = 2
         Observable.just(2)
                 .customSubscribeBy(
@@ -27,12 +26,12 @@ class SplashActivity : BaseActivity(), RxManage {
                         },
                         onComplete = {
                             startActivity(MainActivity.newIntent(this))
+                            finish()
                         },
                         onDisposable = {
                             addDisposable(it)
                         },
                         onNext = {
-                            Logger.e("onnet" + it)
                         })
     }
 

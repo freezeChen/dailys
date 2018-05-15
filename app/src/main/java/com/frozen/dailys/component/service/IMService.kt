@@ -29,7 +29,7 @@ class IMService : Service(), RxManage {
 
     private val request by lazy {
         Request.Builder()
-                .url("ws://47.106.137.3:8088/daily/socket")
+                .url("ws://192.168.10.105:8088/daily/socket")
                 .build()
     }
 
@@ -59,40 +59,38 @@ class IMService : Service(), RxManage {
 
             override fun onClosing(webSocket: WebSocket?, code: Int, reason: String?) {
                 super.onClosing(webSocket, code, reason)
-                Logger.e("onFailure", reason)
+                Logger.e("onclosing", reason)
             }
 
             override fun onMessage(webSocket: WebSocket?, text: String?) {
                 super.onMessage(webSocket, text)
                 IMObservable.newInstance().setNewData(text ?: "")
-                Logger.e("onFailure", text)
+                Logger.e("onmessage:$text")
             }
 
             override fun onMessage(webSocket: WebSocket?, bytes: ByteString?) {
                 super.onMessage(webSocket, bytes)
                 IMObservable.newInstance().setNewData(bytes?.toString() ?: "")
-                Logger.e("onFailure", bytes.toString())
+                Logger.e("onmessage:${bytes.toString()}")
 
             }
 
             override fun onClosed(webSocket: WebSocket?, code: Int, reason: String?) {
                 super.onClosed(webSocket, code, reason)
-                Logger.e("onFailure", reason)
+                Logger.e("onclosed", reason)
             }
         }
 
-
         mClient.newWebSocket(request, mListener)
-
-
         return super.onStartCommand(intent, flags, startId)
 
     }
 
 
     override fun onDestroy() {
-        super.onDestroy()
         unDisposable()
+        super.onDestroy()
+
         mClient.dispatcher().executorService().shutdown()
     }
 

@@ -1,5 +1,6 @@
 package com.frozen.dailys.component.im
 
+import com.orhanobut.logger.Logger
 import okhttp3.WebSocket
 
 /**
@@ -20,8 +21,12 @@ class IMManager {
         this.webSocket = webSocket
     }
 
+    fun stop(webSocket: WebSocket?) {
+        this.webSocket = webSocket
+    }
 
     fun send(string: String) {
+        Logger.e("send:$string,${webSocket == null}")
         webSocket?.send(string)
     }
 }

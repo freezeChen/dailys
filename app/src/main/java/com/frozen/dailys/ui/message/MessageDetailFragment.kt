@@ -1,6 +1,7 @@
 package com.frozen.dailys.ui.message
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
@@ -8,12 +9,11 @@ import android.view.View
 import android.view.ViewGroup
 import com.frozen.dailys.R
 import com.frozen.dailys.base.BaseFragment
-import com.frozen.dailys.component.DataLab
 import com.frozen.dailys.component.im.ChatPresenter
+import com.frozen.dailys.component.service.IMService
 import com.frozen.dailys.model.FInfo
 import com.frozen.dailys.model.Info
 import com.frozen.dailys.ui.message.adpter.MessageDetailAdapter
-import com.google.gson.Gson
 import kotlinx.android.synthetic.main.fragment_message_detail.*
 
 
@@ -66,7 +66,7 @@ class MessageDetailFragment : BaseFragment(), MessageDetailContract.View {
         }
 
         link.setOnClickListener {
-
+            _mActivity.startService(Intent(_mActivity, IMService::class.java))
         }
     }
 
