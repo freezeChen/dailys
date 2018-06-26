@@ -1,11 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:startDestination="@layout/item_message_detail">
+    android:id="@+id/nav_main"
+    app:startDestination="@id/navigation2">
 
     <fragment
-
-        android:name="com.frozen.dailys.ui.message.MessageDetailFragment" />
-
-
+        android:id="@+id/linkFragment"
+        android:name="com.frozen.dailys.ui.message.LinkFragment"
+        android:label="LinkFragment">
+        <action
+            android:id="@+id/action_linkFragment_to_mainActivity"
+            app:destination="@id/navigation2" />
+    </fragment>
+    <navigation android:id="@+id/navigation2"
+        app:startDestination="@id/navigation">
+        <navigation
+            android:id="@+id/navigation"
+            app:startDestination="@id/mainActivity">
+            <activity
+                android:id="@+id/mainActivity"
+                android:name="com.frozen.dailys.ui.MainActivity"
+                android:label="MainActivity" />
+            <action
+                android:id="@+id/action_global_linkFragment"
+                app:destination="@id/linkFragment" />
+            <action
+                android:id="@+id/action_global_messageDetailFragment"
+                app:destination="@id/messageDetailFragment" />
+        </navigation>
+        <fragment
+            android:id="@+id/messageDetailFragment"
+            android:name="com.frozen.dailys.ui.message.MessageDetailFragment"
+            android:label="MessageDetailFragment" />
+    </navigation>
 </navigation>

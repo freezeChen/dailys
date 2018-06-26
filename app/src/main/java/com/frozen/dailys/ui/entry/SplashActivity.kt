@@ -1,7 +1,7 @@
 package com.frozen.dailys.ui.entry
 
 import android.os.Bundle
-import com.frozen.dailys.MainActivity
+import com.frozen.dailys.ui.MainActivity
 import com.frozen.dailys.R
 import com.frozen.dailys.base.BaseActivity
 import com.frozen.dailys.util.RxManage

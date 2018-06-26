@@ -6,6 +6,5 @@ import com.chad.library.adapter.base.BaseViewHolder
 /**
  * Created by chx on 2017/9/25.
  */
-open class MyBaseViewHolder : BaseViewHolder {
-    constructor(view: View) : super(view)
+open class MyBaseViewHolder(view: View) : BaseViewHolder(view) {
 }

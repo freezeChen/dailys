@@ -15,11 +15,10 @@ fun <T : Any> Observable<T>.customSubscribeBy(onDisposable: (t: Disposable) -> U
                                               onComplete: () -> Unit = onCompleteStub,
                                               onError: (t: ResponseThrowable) -> Unit = onErrorStub,
                                               onNext: (T) -> Unit = onNextStub
-) {
-
+): Disposable {
     val err: (Throwable) -> Unit = {
         if (it is ResponseThrowable) onError(it)
         onError(ExceptionHandle.handleException(it))
     }
-    subscribe(onNext, err, onComplete, onDisposable)
+    return subscribe(onNext, err, onComplete, onDisposable)
 }

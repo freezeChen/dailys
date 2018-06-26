@@ -2,6 +2,7 @@ package com.frozen.dailys.component
 
 import android.annotation.SuppressLint
 import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import android.support.annotation.VisibleForTesting
@@ -15,7 +16,7 @@ class ViewModelFactory private constructor(private val application: Application)
     override fun <T : ViewModel> create(modelClass: Class<T>) =
             with(modelClass) {
                 when {
-                    modelClass.isAssignableFrom(BaseViewModel::class.java) -> {
+                    AndroidViewModel::class.java.isAssignableFrom(this) -> {
                         modelClass.getConstructor(Application::class.java).newInstance(application)
                     }
 

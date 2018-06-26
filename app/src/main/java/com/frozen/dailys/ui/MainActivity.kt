@@ -1,9 +1,11 @@
-package com.frozen.dailys
+package com.frozen.dailys.ui
 
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import com.frozen.dailys.R
 import com.frozen.dailys.base.BaseActivity
+import com.frozen.dailys.ui.main.MainFragment
 import com.frozen.dailys.ui.message.MessageDetailFragment
 
 class MainActivity : BaseActivity() {
@@ -15,13 +17,12 @@ class MainActivity : BaseActivity() {
         }
     }
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        if (findFragment(MessageDetailFragment::class.java) == null) {
-            loadRootFragment(R.id.fl_container, MessageDetailFragment.newInstance())
+        if (findFragment(MainFragment::class.java) == null) {
+            loadRootFragment(R.id.fl_container, MainFragment.newInstance())
         }
 
     }
