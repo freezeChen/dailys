@@ -1,7 +1,6 @@
 package com.frozen.dailys.ui.entry
 
 import android.os.Bundle
-import com.frozen.dailys.ui.MainActivity
 import com.frozen.dailys.R
 import com.frozen.dailys.base.BaseActivity
 import com.frozen.dailys.util.RxManage
@@ -9,10 +8,10 @@ import com.frozen.dailys.util.extensions.customSubscribeBy
 import com.orhanobut.logger.Logger
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
+import org.jetbrains.anko.startActivity
 
 class SplashActivity : BaseActivity(), RxManage {
     override var mCompositeDisposable: CompositeDisposable? = null
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,11 +20,10 @@ class SplashActivity : BaseActivity(), RxManage {
         Observable.just(2)
                 .customSubscribeBy(
                         onError = {
-
                             Logger.e(it.message)
                         },
                         onComplete = {
-                            startActivity(MainActivity.newIntent(this))
+                            startActivity<LoginActivity>()
                             finish()
                         },
                         onDisposable = {
@@ -36,8 +34,7 @@ class SplashActivity : BaseActivity(), RxManage {
     }
 
     override fun onDestroy() {
-        super.onDestroy()
         unDisposable()
-
+        super.onDestroy()
     }
 }

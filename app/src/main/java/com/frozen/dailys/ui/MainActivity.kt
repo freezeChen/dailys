@@ -1,19 +1,17 @@
 package com.frozen.dailys.ui
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import com.frozen.dailys.R
 import com.frozen.dailys.base.BaseActivity
 import com.frozen.dailys.ui.main.MainFragment
-import com.frozen.dailys.ui.message.MessageDetailFragment
+import org.jetbrains.anko.startActivity
 
 class MainActivity : BaseActivity() {
 
     companion object {
-        fun newIntent(context: Context): Intent {
-            val intent = Intent(context, MainActivity::class.java)
-            return intent
+        fun newIntent(context: Context) {
+            context.startActivity<MainActivity>()
         }
     }
 

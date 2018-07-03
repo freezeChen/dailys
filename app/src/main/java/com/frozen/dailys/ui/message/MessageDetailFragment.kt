@@ -4,12 +4,12 @@ package com.frozen.dailys.ui.message
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.frozen.dailys.R
 import com.frozen.dailys.base.BaseFragment
-import com.frozen.dailys.component.im.ChatPresenter
 import com.frozen.dailys.component.service.IMService
 import com.frozen.dailys.model.FInfo
 import com.frozen.dailys.model.Info
@@ -28,6 +28,8 @@ class MessageDetailFragment : BaseFragment(), MessageDetailContract.View {
         MessageDetailAdapter()
     }
 
+    private var canScroll = true
+
     companion object {
         fun newInstance(): BaseFragment {
             val args = Bundle()
@@ -41,7 +43,6 @@ class MessageDetailFragment : BaseFragment(), MessageDetailContract.View {
         val view = inflater.inflate(R.layout.fragment_message_detail, container, false)
         mPresenter = ChatPresenter(this)
         mPresenter.start()
-
         return view
     }
 
@@ -70,9 +71,17 @@ class MessageDetailFragment : BaseFragment(), MessageDetailContract.View {
         }
     }
 
-    override fun newMessage(info: Info?) {
+    override fun newMessage(info: ArrayList<Info>?) {
         info?.let {
-            mAdapter.addData(it)
+
+            mAdapter.data.addAll(info)
+
+
+
+            if (recycler_view.scrollState == RecyclerView.SCROLL_STATE_IDLE) {
+                mAdapter.notifyDataSetChanged()
+                recycler_view.scrollToPosition(mAdapter.data.size - 1)
+            }
         }
     }
 

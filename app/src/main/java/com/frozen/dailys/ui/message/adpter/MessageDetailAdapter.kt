@@ -28,7 +28,7 @@ class MessageDetailAdapter() : BaseNormalAdapter<Info>(null) {
 
 
     override fun convert(helper: MyBaseViewHolder, item: Info?) {
-        if (item?.FUserID == DataLab.getInstance().user?.FUserID) {
+        if (item?.FUserID == DataLab.getInstance().user?.fname) {
             helper.setGone(R.id.layout_right, true)
                     .setGone(R.id.layout_left, false)
                     .setText(R.id.tv_name_right, item?.FUserID)

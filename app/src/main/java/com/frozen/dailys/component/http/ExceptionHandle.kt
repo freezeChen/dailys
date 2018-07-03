@@ -23,7 +23,7 @@ class ExceptionHandle {
                     }
                     is ServerException -> {
                         ex.code = e.code
-                        ex.customMessage = BaseApplication.mBaseApplicationContext.getString(R.string.unknow_error)
+                        ex.customMessage = e.customMessage
 
                     }
                     is JsonParseException, is JSONException, is ParseException -> {

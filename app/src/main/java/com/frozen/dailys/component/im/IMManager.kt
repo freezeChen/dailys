@@ -1,32 +1,40 @@
 package com.frozen.dailys.component.im
 
-import com.orhanobut.logger.Logger
+import android.app.Application
+import android.arch.lifecycle.AndroidViewModel
+import android.arch.lifecycle.MutableLiveData
+import android.content.Intent
+import com.frozen.dailys.base.BaseApplication
+import com.frozen.dailys.component.service.IMService
+
 import okhttp3.WebSocket
+import org.jetbrains.anko.startService
 
 /**
  * Created by csc on 2018/5/2.
+ * 负责连接
  */
-class IMManager {
-    private var webSocket: WebSocket? = null
+class IMManager constructor(application: Application) : AndroidViewModel(application) {
+
+    private val webSocket by lazy {
+        MutableLiveData<WebSocket>()
+    }
+
+    fun start() {
+        BaseApplication.mBaseApplicationContext.startService<IMService>()
+    }
+
 
     companion object {
-        fun newInstance() = Inner.INSTANCE
+        private var INSTANCE: IMManager? = null
+        fun getInstance(application: Application): IMManager {
+            return INSTANCE ?: synchronized(IMManager::class.java) {
+                INSTANCE ?: IMManager(application).also {
+                    INSTANCE = it
+                }
+            }
+        }
     }
 
-    private object Inner {
-        val INSTANCE = IMManager()
-    }
 
-    fun start(webSocket: WebSocket?) {
-        this.webSocket = webSocket
-    }
-
-    fun stop(webSocket: WebSocket?) {
-        this.webSocket = webSocket
-    }
-
-    fun send(string: String) {
-        Logger.e("send:$string,${webSocket == null}")
-        webSocket?.send(string)
-    }
 }

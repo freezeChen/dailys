@@ -9,7 +9,7 @@ import com.frozen.dailys.model.Info
  */
 interface MessageDetailContract {
     interface View : BaseView {
-        fun newMessage(info: Info?)
+        fun newMessage(info: ArrayList<Info>?)
 
         fun sendMessage(info: Info)
     }

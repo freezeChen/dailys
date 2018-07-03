@@ -1,6 +1,7 @@
 package com.frozen.dailys.component
 
 import com.frozen.dailys.model.Info
+import com.frozen.dailys.model.User
 
 /**
  * Created by csc on 2018/5/2.
@@ -14,6 +15,6 @@ class DataLab {
         val INSTANCE = DataLab()
     }
 
-    var user: Info? = null
+    var user: User? = null
 
 }
