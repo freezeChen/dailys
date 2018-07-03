@@ -21,6 +21,7 @@ class IMManager constructor(application: Application) : AndroidViewModel(applica
     }
 
     fun start() {
+
         BaseApplication.mBaseApplicationContext.startService<IMService>()
     }
 
