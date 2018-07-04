@@ -1,0 +1,81 @@
+ext {
+    android = [
+            compileSdkVersion: 28,
+            minSdkVersion    : 21,
+            targetSdkVersion : 27,
+            buildToolsVersion: "28.0.0",
+            versionCode      : 1,
+            varsionName      : "1.0"
+    ]
+
+
+
+    version = [
+            kotlin_version         : '1.2.51',
+            android_support_version: "28.0.0-alpha3",
+            constraint_version     : '1.1.2',
+            ktx_version            : '0.3',
+            lifecycle_version      : "1.1.1",
+            anko_version           : '0.10.1',
+
+            fragmentation_version  : '1.3.3',
+            baseAdaper_version     : '2.9.38',
+            eventbus_version       : '3.1.1',
+
+            //网络
+            retrofit2_version      : '2.4.0',
+            okhttp_logging_version : '3.9.0',
+
+            rx2java_version        : '2.1.16',
+            rx2android_version     : '2.0.2',
+            rx2kotlin_version      : '2.2.0',
+
+            glide_version          : '4.7.1',
+
+    ]
+
+    dependencies = [
+            //arch
+            "lifecycle"               : "android.arch.lifecycle:extensions:${version.kotlin_version}",
+            //support
+            "appcompat-v7"            : "com.android.support:appcompat-v7:${version.android_support_version}",
+            "design"                  : "com.android.support:design:${version.android_support_version}",
+            "support-v4"              : "com.android.support:support-v4:${version.android_support_version}",
+            "cardview-v7"             : "com.android.support:cardview-v7:${version.android_support_version}",
+            "annotations"             : "com.android.support:support-annotations:${version.android_support_version}",
+            "recyclerview-v7"         : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
+            "constraint-layout"       : "com.android.support.constraint:constraint-layout:${version["constraint_version"]}",
+            //kotlin
+            "ktx"                     : "androidx.core:core-ktx:${version["ktx_version"]}",
+            "anko"                    : "org.jetbrains.anko:anko-commons:$anko_version",
+
+            "retrofit"                : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
+            "retrofit-converter-gson" : "com.squareup.retrofit2:converter-gson:${version["retrofitSdkVersion"]}",
+            //2选1
+            "retrofit-adapter-rxjava" : "com.squareup.retrofit2:adapter-rxjava:${version["retrofitSdkVersion"]}",
+            "retrofit-adapter-rxjava2": "com.squareup.retrofit2:adapter-rxjava2:${version["retrofitSdkVersion"]}",
+
+            //rx2
+            "rx2java"                 : "io.reactivex.rxjava2:rxjava:${version["rx2java_version"]}",
+            "rx2android"              : "io.reactivex.rxjava2:rxandroid:${version["rx2android_version"]}",
+            "rx2kotlin"               : "io.reactivex.rxjava2:rxkotlin:${version["rx2kotlin_version"]}",
+
+
+            "glide"                   : "com.github.bumptech.glide:glide:${version["glideSdkVersion"]}",
+            "glide-compiler"          : "com.github.bumptech.glide:compiler:${version["glideSdkVersion"]}",
+            "glide-loader-okhttp3"    : "com.github.bumptech.glide:okhttp3-integration:${version["glideSdkVersion"]}",
+
+            //工具
+            "logger"                  : 'com.orhanobut:logger:2.1.1',
+            "baseAdapter"             : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version["baseAdaper_version"]}",
+            "eventbus"                : "org.greenrobot:eventbus:${version["eventbus_version"]}",
+
+            //杂项(可能会用到的第三方控件)
+            "pickerview"              : "com.contrarywind:Android-PickerView:3.2.5",
+            "photoview"               : "com.github.chrisbanes.photoview:library:1.2.3",
+            "qmui"                    : 'com.qmuiteam:qmui:1.1.0',
+
+    ]
+
+
+}

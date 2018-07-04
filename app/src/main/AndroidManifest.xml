@@ -34,8 +34,7 @@
 
         <service android:name=".component.service.IMService" />
 
-        <activity
-            android:name=".ui.entry.LoginActivity"/>
+        <activity android:name=".ui.entry.LoginActivity" />
     </application>
 
 </manifest>
