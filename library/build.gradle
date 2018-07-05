@@ -1,5 +1,7 @@
 apply plugin: 'com.android.library'
+
 apply plugin: 'kotlin-android'
+
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -11,12 +13,6 @@ android {
         minSdkVersion cfg.minSdkVersion
         targetSdkVersion cfg.targetSdkVersion
 
-        javaCompileOptions {
-            // 显式声明支持注解
-            annotationProcessorOptions {
-                includeCompileClasspath false
-            }
-        }
     }
 }
 
@@ -30,8 +26,10 @@ dependencies {
     api depend["constraintlayout"]
     api depend["recyclerview-v7"]
 
-
-    api depend["appcompat-v7"]
+    api depend["support-v4"]
+    api(depend["appcompat-v7"]) {
+        exclude module: 'support-v4'
+    }
     api depend["lifecycle"]
 
     api depend["ktx"]
@@ -50,14 +48,10 @@ dependencies {
 
     api depend["glide"]
     kapt depend["glide-compiler"]
-    api depend["glide-loader-okhttp3"]
-
-    api depend["glide"]
-    api depend["glide-compiler"]
-    api depend["glide-loader-okhttp3"]
+//    api depend["glide-loader-okhttp3"]
 
     api depend["baseAdapter"]
-    api depend["eventbus"]
+//    api depend["eventbus"]
 //    api depend[""]
 //    api depend[""]
 //    api depend[""]
@@ -76,9 +70,5 @@ dependencies {
 //    testImplementation 'junit:junit:4.12'
 //    androidTestImplementation 'androidx.test:runner:1.1.0-alpha1'
 //    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha1'
-}
-
-kapt {
-    generateStubs = true
 }
 

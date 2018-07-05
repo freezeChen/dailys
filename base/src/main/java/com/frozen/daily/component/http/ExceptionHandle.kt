@@ -1,13 +1,14 @@
 package com.frozen.daily.component.http
 
 import android.net.ParseException
-import com.bumptech.glide.load.HttpException
+
 
 import com.frozen.daily.base.BaseApplication
 import com.frozen.daily.base.R
 import com.frozen.daily.model.ResponseThrowable
 import com.google.gson.JsonParseException
 import org.json.JSONException
+import retrofit2.HttpException
 import java.net.ConnectException
 import java.net.SocketTimeoutException
 import javax.net.ssl.SSLHandshakeException

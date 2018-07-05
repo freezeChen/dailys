@@ -12,6 +12,7 @@ android {
     compileSdkVersion cfg.compileSdkVersion
     buildToolsVersion cfg.buildToolsVersion
 
+
     defaultConfig {
         minSdkVersion cfg.minSdkVersion
         targetSdkVersion cfg.targetSdkVersion
@@ -33,19 +34,17 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    dataBinding {
-        enabled = true
-    }
+//    dataBinding {
+//        enabled = true
+//    }
 
-    kapt {
-        generateStubs = true
-    }
+
 
 }
 
 dependencies {
+    def depend = rootProject.ext.dependencies
     implementation project(':base')
-
     /* implementation fileTree(include: ['*.jar'], dir: 'libs')
      implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
      implementation "com.android.support:appcompat-v7:$android_suppot_version"
@@ -85,3 +84,6 @@ dependencies {
      androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'*/
 }
 
+kapt {
+    generateStubs = true
+}

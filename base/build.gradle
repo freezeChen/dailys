@@ -8,6 +8,9 @@ android {
     compileSdkVersion cfg.compileSdkVersion
     buildToolsVersion cfg.buildToolsVersion
 
+    kapt {
+        generateStubs = true
+    }
     defaultConfig {
         minSdkVersion cfg.minSdkVersion
         targetSdkVersion cfg.targetSdkVersion
@@ -19,8 +22,8 @@ android {
 }
 
 dependencies {
+    def depend = rootProject.ext.dependencies
+//    implementation depend["glide"]
+//    kapt depend["glide-compiler"]
     api project(':library')
-}
-repositories {
-    mavenCentral()
 }
