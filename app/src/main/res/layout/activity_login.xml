@@ -8,7 +8,7 @@
 
         <variable
             name="viewmodel"
-            type="com.frozen.dailys.ui.entry.viewmodel.LoginViewModel" />
+            type="com.frozen.daily.ui.entry.viewmodel.LoginViewModel" />
     </data>
 
     <LinearLayout
@@ -55,7 +55,7 @@
                     android:maxLines="1"
                     android:singleLine="true" />
 
-                <android.support.design.button.MaterialButton
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/email_sign_in_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -69,8 +69,7 @@
                     android:shadowRadius="@integer/qmui_anim_duration"
                     android:text="登陆"
                     android:textAppearance="?android:attr/textAppearanceLargeInverse"
-                    android:textStyle="bold"
-                    app:cornerRadius="5dp" />
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </ScrollView>

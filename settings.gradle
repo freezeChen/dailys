@@ -1,1 +1,1 @@
-include ':app', ':imsdk', ':base'
+include ':app', ':imsdk', ':base', ':library'

@@ -1,6 +1,5 @@
-package com.frozen.dailys.base
+package com.frozen.daily.base
 
-import android.arch.lifecycle.Lifecycle
 import me.yokeyword.fragmentation.SupportActivity
 
 open class BaseActivity : SupportActivity() {

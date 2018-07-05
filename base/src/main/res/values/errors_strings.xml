@@ -1,0 +1,9 @@
+<resources>
+    <string name="base_txt_unknow_error">未知错误</string>
+    <string name="base_network_error">网络异常</string>
+    <string name="base_parse_error">解析错误</string>
+    <string name="base_connect_error">连接失败</string>
+    <string name="base_ssl_error">证书验证失败</string>
+    <string name="base_unknow_error">未知错误</string>
+    <string name="base_timeout_error">连接超时</string>
+</resources>

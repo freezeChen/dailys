@@ -1,4 +1,4 @@
-package com.frozen.dailys.base
+package com.frozen.daily.base
 
 import android.view.View
 import com.chad.library.adapter.base.BaseViewHolder

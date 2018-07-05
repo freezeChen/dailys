@@ -1,4 +1,4 @@
-package com.frozen.dailys.base
+package com.frozen.daily.base
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData

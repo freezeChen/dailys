@@ -1,4 +1,4 @@
-package com.frozen.dailys.base
+package com.frozen.daily.base
 
 /**
  * Created by csc on 2018/5/8.

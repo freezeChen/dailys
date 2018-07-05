@@ -1,9 +1,8 @@
-package com.frozen.dailys.base
+package com.frozen.daily.base
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
-import com.frozen.dailys.component.SingleLiveEvent
-import io.reactivex.disposables.Disposable
+import com.frozen.daily.component.SingleLiveEvent
 
 /**
  * Created by csc on 2018/5/14.

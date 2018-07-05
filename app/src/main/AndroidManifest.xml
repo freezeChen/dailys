@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.frozen.dailys">
+    package="com.frozen.daily">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -30,11 +30,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.MainActivity" />
+        <!--<activity android:name=".ui.MainActivity" />-->
 
         <service android:name=".component.service.IMService" />
 
-        <activity android:name=".ui.entry.LoginActivity" />
+        <!--<activity android:name=".ui.entry.LoginActivity" />-->
     </application>
 
 </manifest>

@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+
+android {
+    def cfg = rootProject.ext.android
+    compileSdkVersion cfg.compileSdkVersion
+    buildToolsVersion cfg.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+
+        javaCompileOptions {
+            // 显式声明支持注解
+            annotationProcessorOptions {
+                includeCompileClasspath false
+            }
+        }
+    }
+}
+
+
+dependencies {
+    def depend = rootProject.ext.dependencies
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    api depend["kotlin_jdk"]
+
+    api depend["constraintlayout"]
+    api depend["recyclerview-v7"]
+
+
+    api depend["appcompat-v7"]
+    api depend["lifecycle"]
+
+    api depend["ktx"]
+    api depend["anko"]
+
+    api depend["fragmentation"]
+
+    api depend["retrofit"]
+    api depend["retrofit-converter-gson"]
+    api depend["retrofit-adapter-rxjava2"]
+    api depend["okhttp3-logging"]
+
+    api depend["rx2java"]
+    api depend["rx2android"]
+    api depend["rx2kotlin"]
+
+    api depend["glide"]
+    kapt depend["glide-compiler"]
+    api depend["glide-loader-okhttp3"]
+
+    api depend["glide"]
+    api depend["glide-compiler"]
+    api depend["glide-loader-okhttp3"]
+
+    api depend["baseAdapter"]
+    api depend["eventbus"]
+//    api depend[""]
+//    api depend[""]
+//    api depend[""]
+
+    api depend["logger"]
+    api depend["qmui"]
+    api depend["pickerview"]
+    api depend["photoview"]
+//    api depend[""]
+//    api depend[""]
+//    api depend[""]
+//    api depend[""]
+//    api depend[""]
+//    api depend[""]
+
+//    testImplementation 'junit:junit:4.12'
+//    androidTestImplementation 'androidx.test:runner:1.1.0-alpha1'
+//    androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha1'
+}
+
+kapt {
+    generateStubs = true
+}
+

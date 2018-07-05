@@ -11,8 +11,10 @@ ext {
 
 
     version = [
-            kotlin_version         : '1.2.51',
+            kotlin_version         : "1.2.51",
             android_support_version: "28.0.0-alpha3",
+            androidx_version       : "1.0.0-beta01",
+
             constraint_version     : '1.1.2',
             ktx_version            : '0.3',
             lifecycle_version      : "1.1.1",
@@ -24,56 +26,70 @@ ext {
 
             //网络
             retrofit2_version      : '2.4.0',
-            okhttp_logging_version : '3.9.0',
+            okhttp_logging_version : '3.10.0',
 
             rx2java_version        : '2.1.16',
             rx2android_version     : '2.0.2',
             rx2kotlin_version      : '2.2.0',
 
-            glide_version          : '4.7.1',
+            glide_version          : "4.7.1",
 
     ]
 
     dependencies = [
+
+            "kotlin_jdk"              : "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${version.kotlin_version}",
             //arch
-            "lifecycle"               : "android.arch.lifecycle:extensions:${version.kotlin_version}",
+            "lifecycle"               : "android.arch.lifecycle:extensions:${version.lifecycle_version}",
             //support
             "appcompat-v7"            : "com.android.support:appcompat-v7:${version.android_support_version}",
             "design"                  : "com.android.support:design:${version.android_support_version}",
             "support-v4"              : "com.android.support:support-v4:${version.android_support_version}",
             "cardview-v7"             : "com.android.support:cardview-v7:${version.android_support_version}",
             "annotations"             : "com.android.support:support-annotations:${version.android_support_version}",
-            "recyclerview-v7"         : "com.android.support:recyclerview-v7:${version["androidSupportSdkVersion"]}",
-            "constraint-layout"       : "com.android.support.constraint:constraint-layout:${version["constraint_version"]}",
-            //kotlin
-            "ktx"                     : "androidx.core:core-ktx:${version["ktx_version"]}",
-            "anko"                    : "org.jetbrains.anko:anko-commons:$anko_version",
+            "recyclerview-v7"         : "com.android.support:recyclerview-v7:${version.android_support_version}",
 
-            "retrofit"                : "com.squareup.retrofit2:retrofit:${version["retrofitSdkVersion"]}",
-            "retrofit-converter-gson" : "com.squareup.retrofit2:converter-gson:${version["retrofitSdkVersion"]}",
+            "constraintlayout"        : "androidx.constraintlayout:constraintlayout:${version.constraint_version}",
+            //androidX
+            "appcompat"               : "androidx.appcompat:appcompat:${version.androidx_version}",
+
+            //kotlin
+            "ktx"                     : "androidx.core:core-ktx:${version.ktx_version}",
+            "anko"                    : "org.jetbrains.anko:anko-commons:${version.anko_version}",
+
+            "fragmentation"           : "me.yokeyword:fragmentation:${version.fragmentation_version}",
+
+            "retrofit"                : "com.squareup.retrofit2:retrofit:${version.retrofit2_version}",
+            "retrofit-converter-gson" : "com.squareup.retrofit2:converter-gson:${version.retrofit2_version}",
             //2选1
-            "retrofit-adapter-rxjava" : "com.squareup.retrofit2:adapter-rxjava:${version["retrofitSdkVersion"]}",
-            "retrofit-adapter-rxjava2": "com.squareup.retrofit2:adapter-rxjava2:${version["retrofitSdkVersion"]}",
+            "retrofit-adapter-rxjava" : "com.squareup.retrofit2:adapter-rxjava:${version.retrofit2_version}",
+            "retrofit-adapter-rxjava2": "com.squareup.retrofit2:adapter-rxjava2:${version.retrofit2_version}",
+            "okhttp3-logging"         : "com.squareup.okhttp3:logging-interceptor:${version.okhttp_logging_version}",
 
             //rx2
-            "rx2java"                 : "io.reactivex.rxjava2:rxjava:${version["rx2java_version"]}",
-            "rx2android"              : "io.reactivex.rxjava2:rxandroid:${version["rx2android_version"]}",
-            "rx2kotlin"               : "io.reactivex.rxjava2:rxkotlin:${version["rx2kotlin_version"]}",
+            "rx2java"                 : "io.reactivex.rxjava2:rxjava:${version.rx2java_version}",
+            "rx2android"              : "io.reactivex.rxjava2:rxandroid:${version.rx2android_version}",
+            "rx2kotlin"               : "io.reactivex.rxjava2:rxkotlin:${version.rx2kotlin_version}",
 
 
-            "glide"                   : "com.github.bumptech.glide:glide:${version["glideSdkVersion"]}",
-            "glide-compiler"          : "com.github.bumptech.glide:compiler:${version["glideSdkVersion"]}",
-            "glide-loader-okhttp3"    : "com.github.bumptech.glide:okhttp3-integration:${version["glideSdkVersion"]}",
+            "glide"                   : "com.github.bumptech.glide:glide:${version.glide_version}",
+            "glide-compiler"          : "com.github.bumptech.glide:compiler:${version.glide_version}",
+            "glide-loader-okhttp3"    : "com.github.bumptech.glide:okhttp3-integration:${version.glide_version}",
 
             //工具
+            "baseAdapter"             : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version.baseAdaper_version}",
+            "eventbus"                : "org.greenrobot:eventbus:${version.eventbus_version}",
             "logger"                  : 'com.orhanobut:logger:2.1.1',
-            "baseAdapter"             : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version["baseAdaper_version"]}",
-            "eventbus"                : "org.greenrobot:eventbus:${version["eventbus_version"]}",
 
             //杂项(可能会用到的第三方控件)
             "pickerview"              : "com.contrarywind:Android-PickerView:3.2.5",
             "photoview"               : "com.github.chrisbanes.photoview:library:1.2.3",
-            "qmui"                    : 'com.qmuiteam:qmui:1.1.0',
+            "qmui"                    : 'com.qmuiteam:qmui:1.1.5',
+
+            //test
+
+            "test_runner"             : "androidx.test:runner:1.1.0-alpha1",
+            "test_espresso"           : 'androidx.test.espresso:espresso-core:3.1.0-alpha1',
 
     ]
 

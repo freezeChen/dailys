@@ -1,10 +1,9 @@
-package com.frozen.dailys.base
+package com.frozen.daily.base
 
 import android.app.Application
 import android.content.Context
-import com.frozen.dailys.BuildConfig
+
 import com.orhanobut.logger.AndroidLogAdapter
-import com.orhanobut.logger.LogAdapter
 import com.orhanobut.logger.Logger
 
 import me.yokeyword.fragmentation.Fragmentation
@@ -31,7 +30,7 @@ class BaseApplication : Application() {
     private fun initFragmentation() {
         Fragmentation.builder()
                 .stackViewMode(Fragmentation.BUBBLE)
-                .debug(com.frozen.dailys.BuildConfig.DEBUG_MODE)
+                .debug(BuildConfig.DEBUG_MODE)
                 .install()
     }
 }
