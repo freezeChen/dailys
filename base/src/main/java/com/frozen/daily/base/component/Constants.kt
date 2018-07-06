@@ -1,4 +1,4 @@
-package com.frozen.daily.component
+package com.frozen.daily.base.component
 
 class Constants {
     companion object {

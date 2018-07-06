@@ -1,4 +1,4 @@
-package com.frozen.daily.component
+package com.frozen.daily.base.component
 
 import android.arch.lifecycle.LifecycleOwner
 import android.arch.lifecycle.MutableLiveData

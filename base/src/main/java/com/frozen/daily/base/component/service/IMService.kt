@@ -1,10 +1,10 @@
-package com.frozen.daily.component.service
+package com.frozen.daily.base.component.service
 
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import com.frozen.daily.component.im.IMManager
-import com.frozen.daily.util.RxManage
+import com.frozen.daily.base.component.im.IMManager
+import com.frozen.daily.base.util.RxManage
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable
 import okhttp3.*
@@ -60,7 +60,6 @@ class IMService : Service(), RxManage {
             override fun onMessage(webSocket: WebSocket?, text: String?) {
                 super.onMessage(webSocket, text)
                 Logger.e("onmessage:$text")
-
             }
 
             override fun onMessage(webSocket: WebSocket?, bytes: ByteString?) {

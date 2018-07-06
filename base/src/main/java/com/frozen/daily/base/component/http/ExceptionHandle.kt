@@ -1,11 +1,10 @@
-package com.frozen.daily.component.http
+package com.frozen.daily.base.component.http
 
 import android.net.ParseException
 
 
-import com.frozen.daily.base.BaseApplication
+import com.frozen.daily.base.base.BaseApplication
 import com.frozen.daily.base.R
-import com.frozen.daily.model.ResponseThrowable
 import com.google.gson.JsonParseException
 import org.json.JSONException
 import retrofit2.HttpException

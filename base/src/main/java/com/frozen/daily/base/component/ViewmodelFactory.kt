@@ -1,4 +1,4 @@
-package com.frozen.daily.component
+package com.frozen.daily.base.component
 
 import android.annotation.SuppressLint
 import android.app.Application

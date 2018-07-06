@@ -23,7 +23,7 @@ android {
 
 dependencies {
     def depend = rootProject.ext.dependencies
-//    implementation depend["glide"]
-//    kapt depend["glide-compiler"]
+    implementation depend["glide"]
+    kapt depend["glide-compiler"]
     api project(':library')
 }

@@ -1,6 +1,6 @@
-package com.frozen.daily.component.http
+package com.frozen.daily.base.component.http
 
-import com.frozen.daily.component.Constants
+import com.frozen.daily.base.component.Constants
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit

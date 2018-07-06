@@ -2,12 +2,8 @@ package com.frozen.daily.ui.entry.viewmodel
 
 import android.app.Application
 import android.arch.lifecycle.MutableLiveData
-import com.frozen.daily.base.BaseViewModel
+import com.frozen.daily.base.base.BaseViewModel
 import com.frozen.daily.model.User
-import com.frozen.daily.util.RxUtils
-import com.orhanobut.logger.Logger
-import io.reactivex.Observable
-import io.reactivex.disposables.Disposable
 
 class LoginViewModel(application: Application) : BaseViewModel(application) {
 //    lateinit var repository: EntryRepository

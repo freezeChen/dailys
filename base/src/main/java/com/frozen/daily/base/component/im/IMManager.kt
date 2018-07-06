@@ -1,4 +1,4 @@
-package com.frozen.daily.component.im
+package com.frozen.daily.base.component.im
 
 import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
@@ -31,6 +31,4 @@ class IMManager constructor(application: Application) : AndroidViewModel(applica
             }
         }
     }
-
-
 }

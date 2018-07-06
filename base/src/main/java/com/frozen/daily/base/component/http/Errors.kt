@@ -1,4 +1,4 @@
-package com.frozen.daily.component.http
+package com.frozen.daily.base.component.http
 
 class Errors {
 

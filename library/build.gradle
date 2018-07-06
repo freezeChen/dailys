@@ -27,9 +27,7 @@ dependencies {
     api depend["recyclerview-v7"]
 
     api depend["support-v4"]
-    api(depend["appcompat-v7"]) {
-        exclude module: 'support-v4'
-    }
+    api depend["appcompat-v7"]
     api depend["lifecycle"]
 
     api depend["ktx"]
@@ -46,8 +44,8 @@ dependencies {
     api depend["rx2android"]
     api depend["rx2kotlin"]
 
-    api depend["glide"]
-    kapt depend["glide-compiler"]
+//    api depend["glide"]
+//    kapt depend["glide-compiler"]
 //    api depend["glide-loader-okhttp3"]
 
     api depend["baseAdapter"]
