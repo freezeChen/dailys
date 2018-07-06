@@ -1,1 +1,1 @@
-include ':app', ':imsdk', ':base', ':library'
+include ':app', ':imsdk', ':base', ':library', ':module_my'

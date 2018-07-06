@@ -6,7 +6,10 @@ import android.support.annotation.DrawableRes
 import android.view.View
 import com.bumptech.glide.Glide
 
-interface ImageLoaderImpl {
+/**
+ * Created by csc on 2018/5/14.
+ */
+internal interface ImageLoaderImpl {
     fun showImage(context: Context, options: ImageLoaderOptions)
     fun getBitmap(context: Context, url: String, listener: ImageLoaderListener<Bitmap>)
     fun clearCache(context: Context)

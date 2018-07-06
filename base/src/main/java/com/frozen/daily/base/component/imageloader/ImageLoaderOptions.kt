@@ -4,9 +4,11 @@ import android.support.annotation.DrawableRes
 import android.view.View
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation
-import com.bumptech.glide.request.target.Target
 
-class ImageLoaderOptions private constructor(val builder: Builder) {
+/**
+ * Created by csc on 2018/5/14.
+ */
+class ImageLoaderOptions private constructor(private val builder: Builder) {
     internal var mImageView: View? = null
     internal var mUrl: String? = null
     internal var mResource: Int? = null
@@ -68,7 +70,6 @@ class ImageLoaderOptions private constructor(val builder: Builder) {
             mBitmapTransformation = transformation
             return this
         }
-
 
         fun build(): ImageLoaderOptions {
             return ImageLoaderOptions(this)

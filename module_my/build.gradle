@@ -1,0 +1,66 @@
+if (isModuleRun.toBoolean()) {
+    apply plugin: 'com.android.application'
+} else {
+    apply plugin: 'com.android.library'
+}
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+
+
+def cfg = rootProject.ext.android
+android {
+    compileSdkVersion cfg.compileSdkVersion
+    buildToolsVersion cfg.buildToolsVersion
+    defaultConfig {
+        minSdkVersion cfg.minSdkVersion
+        targetSdkVersion cfg.targetSdkVersion
+//        applicationId "com.frozen.daily.modulemy"
+        versionCode cfg.versionCode
+        versionName cfg.varsionName
+        resourcePrefix "setting_"
+    }
+    buildTypes {
+        debug {
+            minifyEnabled false
+            buildConfigField "boolean", "DEBUG_MODE", "true"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        release {
+            minifyEnabled false
+            buildConfigField "boolean", "DEBUG_MODE", "false"
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+
+    sourceSets {
+        main {
+            if (isModuleRun) {
+                manifest.srcFile 'src/debug/AndroidManifest.xml'
+//            res.srcDirs = ['src/debug/res', 'src/main/res']
+            } else {
+                manifest.srcFile 'src/main/AndroidManifest.xml'
+                java {
+                    exclude 'src/debug/**'
+                }
+            }
+        }
+    }
+}
+
+
+
+dependencies {
+    def depend = rootProject.ext.dependencies
+    implementation project(':base')
+    kapt depend["arouter-compiler"]
+}
+
+kapt {
+    arguments {
+        arg("moduleName", project.getName())
+    }
+}

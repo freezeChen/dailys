@@ -58,7 +58,7 @@ dependencies {
     api depend["qmui"]
     api depend["pickerview"]
     api depend["photoview"]
-//    api depend[""]
+    api depend["arouter-api"]
 //    api depend[""]
 //    api depend[""]
 //    api depend[""]

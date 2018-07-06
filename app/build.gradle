@@ -45,6 +45,7 @@ android {
 dependencies {
     def depend = rootProject.ext.dependencies
     implementation project(':base')
+    implementation project(':module_my')
     /* implementation fileTree(include: ['*.jar'], dir: 'libs')
      implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
      implementation "com.android.support:appcompat-v7:$android_suppot_version"

@@ -4,8 +4,10 @@ import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
-import kotlin.math.E
 
+/**
+ * Created by csc on 2018/5/14.
+ */
 interface ImageLoaderListener<T> : RequestListener<T> {
     override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<T>?, isFirstResource: Boolean): Boolean {
         return Failed(e, model, target, isFirstResource)

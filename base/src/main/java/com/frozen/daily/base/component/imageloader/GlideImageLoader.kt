@@ -6,10 +6,10 @@ import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
 
-class GlideImageLoader : ImageLoaderImpl {
-    companion object {
-        fun getInstance() = INNER.INSTANCE
-    }
+/**
+ * Created by csc on 2018/5/14.
+ */
+internal class GlideImageLoader : ImageLoaderImpl {
 
     override fun getBitmap(context: Context, url: String, listener: ImageLoaderListener<Bitmap>) {
         GlideApp.with(context).asBitmap().listener(listener).load(url).submit().get()
@@ -46,13 +46,12 @@ class GlideImageLoader : ImageLoaderImpl {
             null
         }
 
+        transformer?.let {
+            load.transform(it)
+        }
+
         load.diskCacheStrategy(options.mDiskCacheStrategy)
 
-
         load.into(options.mImageView as ImageView)
-    }
-
-    private object INNER {
-        val INSTANCE = GlideImageLoader()
     }
 }

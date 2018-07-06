@@ -25,7 +25,6 @@ class ViewModelFactory private constructor(private val application: Application)
             } as T
 
     companion object {
-
         @SuppressLint("StaticFieldLeak")
         @Volatile
         private var INSTANCE: ViewModelFactory? = null
