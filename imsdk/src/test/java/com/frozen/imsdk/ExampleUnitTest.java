@@ -2,6 +2,8 @@ package com.frozen.imsdk;
 
 import org.junit.Test;
 
+import java.io.IOException;
+
 import static org.junit.Assert.*;
 
 /**
@@ -14,4 +16,34 @@ public class ExampleUnitTest {
     public void addition_isCorrect() {
         assertEquals(4, 2 + 2);
     }
+
+    @Test
+    public void netty() {
+        NettyClient.getInstance().connect();
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (true) {
+                    NettyClient.getInstance().insertCmd("hoho");
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        }).start();
+
+
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
+
+
