@@ -1,5 +1,7 @@
 package com.frozen.imsdk;
 
+import com.frozen.daily.imsdk.R;
+
 import java.net.PasswordAuthentication;
 
 import io.netty.buffer.ByteBuf;
@@ -26,8 +28,8 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
 
     public static byte[] decode(ByteBuf buf) {
         ByteBuf rawHead = buf.readBytes(RawHeaderSize);
-        byte[] bytes = new byte[rawHead.readableBytes()];
-        rawHead.readBytes(bytes);
+//        byte[] bytes = new byte[rawHead.readableBytes()];
+//        rawHead.readBytes(bytes);
 
         byte[] packLen = new byte[PackSize];
         byte[] rawHeader = new byte[HeaderSize];
@@ -35,20 +37,45 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
         byte[] operation = new byte[OperationSize];
         byte[] seqId = new byte[SeqIdSize];
 
+        rawHead.readBytes(packLen);
+        rawHead.readBytes(rawHeader);
+        rawHead.readBytes(version);
+        rawHead.readBytes(operation);
+        rawHead.readBytes(seqId);
 
-        int index = 0;
-        System.arraycopy(bytes, 0, packLen, 0, PackSize);
-        index += PackSize;
 
-        System.arraycopy(bytes, PackSize, rawHeader, index, index + HeaderSize);
-        index += HeaderSize;
 
-        System.arraycopy(bytes, 0, version, index, index + VerSize);
-        index += VerSize;
-        System.arraycopy(bytes, 0, operation, index, index + OperationSize);
-        index += OperationSize;
-        System.arraycopy(bytes, 0, seqId, index, index + SeqIdSize);
-        index += OperationSize;
+        System.out.println(byteArrayToInt(packLen));
+        System.out.println(byteArrayToInt(rawHeader));
+        System.out.println(byteArrayToInt(version));
+        System.out.println(byteArrayToInt(operation));
+        System.out.println(byteArrayToInt(seqId));
+
+//        ByteBuf bodyBuf = buf.readBytes();
+        System.out.println(byteArrayToInt(packLen) - byteArrayToInt(rawHeader));
+        byte[] bodyBytes = new byte[byteArrayToInt(packLen) - byteArrayToInt(rawHeader)];
+        buf.readBytes(bodyBytes);
+
+        System.out.println(new String(bodyBytes));
+
+
+////        System.arraycopy(bytes, 0, packLen, 0, PackSize);
+//        index += PackSize;
+//        System.out.println(new String(bytes, index, HeaderSize));
+//
+////        System.arraycopy(bytes, PackSize, rawHeader, index, index + HeaderSize);
+//        index += HeaderSize;
+//        System.out.println(new String(bytes, index, VerSize));
+////        System.arraycopy(bytes, 0, version, index, index + VerSize);
+//        index += VerSize;
+//        System.out.println(new String(bytes, index, OperationSize));
+////        System.arraycopy(bytes, 0, operation, index, index + OperationSize);
+//        index += OperationSize;
+//        System.out.println(new String(bytes, index, SeqIdSize));
+////        System.arraycopy(bytes, 0, seqId, index, index + SeqIdSize);
+//        index += OperationSize;
+//
+
 
         System.out.println(new String(packLen) + "\n"
                 + new String(rawHeader) + "\n"
@@ -59,8 +86,8 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
 //        System.arraycopy(bytes,0,);
 
 
-        System.out.println(new String(bytes));
-        return bytes;
+//        System.out.println(new String(bytes));
+        return bodyBytes;
     }
 
     public static ByteBuf encode(String msg) {
@@ -112,6 +139,14 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
         result[1] = src[3];
 
         return result;
+    }
+
+    public static int byteArrayToInt(byte[] b) {
+        int value= 0;
+        for(int i=0; i<b.length; i++)
+            value = (value << 8) | b[i];
+        return value;
+
     }
 
 }

@@ -25,15 +25,14 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         byte[] decode = MessageDecoder.decode(strMsg.copy());
 
 
-        System.out.println(new String(decode
-        ));
+        System.out.println(new String(decode));
 
-        byte[] bytes = new byte[strMsg.readableBytes()];
-        strMsg.readBytes(bytes);
-
-
-        System.out.println("read : " + new String(bytes));
-
+//        byte[] bytes = new byte[strMsg.readableBytes()];
+//        strMsg.readBytes(bytes);
+//
+//
+//        System.out.println("read : " + new String(bytes));
+//
 
         super.channelRead(ctx, msg);
     }

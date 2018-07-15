@@ -25,7 +25,7 @@ public class ExampleUnitTest {
             @Override
             public void run() {
                 while (true) {
-                    NettyClient.getInstance().insertCmd("hoho");
+                    NettyClient.getInstance().insertCmd("我是客户端");
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
