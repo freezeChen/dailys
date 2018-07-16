@@ -36,7 +36,6 @@ public class ExampleUnitTest {
             }
         }).start();
 
-
         try {
             System.in.read();
         } catch (IOException e) {
