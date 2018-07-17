@@ -16,7 +16,7 @@ android {
     defaultConfig {
         minSdkVersion cfg.minSdkVersion
         targetSdkVersion cfg.targetSdkVersion
-//        applicationId "com.frozen.daily.modulemy"
+        applicationId "com.frozen.daily.module_my"
         versionCode cfg.versionCode
         versionName cfg.varsionName
         resourcePrefix "setting_"
@@ -56,6 +56,7 @@ android {
 dependencies {
     def depend = rootProject.ext.dependencies
     implementation project(':base')
+    implementation project(':module_data')
     kapt depend["arouter-compiler"]
 }
 

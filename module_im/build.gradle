@@ -15,7 +15,7 @@ android {
     defaultConfig {
         minSdkVersion cfg.minSdkVersion
         targetSdkVersion cfg.targetSdkVersion
-//        applicationId "com.frozen.daily.im"
+        applicationId "com.frozen.daily.im"
         versionCode cfg.versionCode
         versionName cfg.varsionName
         resourcePrefix "im_"
@@ -48,15 +48,16 @@ android {
             }
         }
     }
+
+    dataBinding {
+        enabled = true
+    }
 }
-
-
 
 dependencies {
     def depend = rootProject.ext.dependencies
     implementation project(':base')
     implementation project(':imsdk')
-
     kapt depend["arouter-compiler"]
 }
 
