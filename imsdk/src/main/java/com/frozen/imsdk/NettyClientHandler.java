@@ -15,12 +15,14 @@ import io.netty.channel.ChannelOutboundBuffer;
 
 public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     private NettyClient nettyClient = null;
-    private Observable observable = null;
+    private Observable mMessageObservable = null;
+    private Observable mConnectObservable = null;
 
-    public NettyClientHandler(NettyClient nettyClient, Observable observable) {
+    public NettyClientHandler(NettyClient nettyClient) {
         super();
         this.nettyClient = nettyClient;
-        this.observable = observable;
+        this.mConnectObservable =
+        this.mMessageObservable = ConversationObservable.getInstance();
     }
 
     @Override
@@ -59,8 +61,6 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
-
         observable.notifyObservers(new IMConnect(IMConnect.CONNECT_SUCCESS));
         System.out.println("NettyClientHandler" + "=====连接成功回调=====");
         nettyClient.setConnectState(NettyClient.CONNECTED);

@@ -4,6 +4,7 @@ import com.frozen.imsdk.model.IMConnect;
 
 import java.io.UnsupportedEncodingException;
 import java.time.temporal.ValueRange;
+import java.util.Observable;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.TimeUnit;
 
@@ -71,7 +72,8 @@ public class NettyClient {
 //                pipeline.addLast("idleStateHandler", new IdleStateHandler(60, 60, 0));
 //对消息格式进行验证（MessageDecoder为自定义的解析验证类因协议规定而定）
 //                pipeline.addLast("messageDecoder", new MessageDecoder());
-                pipeline.addLast("clientHandler", new NettyClientHandler(nettyClient, imConnect));
+
+                pipeline.addLast("clientHandler", new NettyClientHandler(nettyClient ));
             }
         });
         startSendThread();

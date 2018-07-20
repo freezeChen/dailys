@@ -19,7 +19,7 @@ android {
         applicationId "com.frozen.daily.module_my"
         versionCode cfg.versionCode
         versionName cfg.varsionName
-        resourcePrefix "setting_"
+        resourcePrefix "my_"
     }
     buildTypes {
         debug {
