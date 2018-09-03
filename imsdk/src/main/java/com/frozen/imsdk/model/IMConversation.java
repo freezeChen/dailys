@@ -1,14 +1,17 @@
 package com.frozen.imsdk.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class IMConversation {
-    private IMMessage message;
+    private List<IMMessage> messageList = new ArrayList<>();
 
 
-    public IMMessage getMessage() {
-        return message;
+    public List<IMMessage> getMessage() {
+        return messageList;
     }
 
     public void setMessage(IMMessage message) {
-        this.message = message;
+        messageList.add(message);
     }
 }

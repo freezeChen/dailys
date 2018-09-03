@@ -34,22 +34,22 @@ class SplashActivity : BaseActivity(), RxManage {
                             ARouter.getInstance().build("/setting/main")
 
                                     .navigation(this, object : NavigationCallback {
-                                override fun onLost(postcard: Postcard?) {
-                                    Logger.e("onLost" )
-                                }
+                                        override fun onLost(postcard: Postcard?) {
+                                            Logger.e("onLost")
+                                        }
 
-                                override fun onFound(postcard: Postcard?) {
-                                    Logger.e("onComplete")
-                                }
+                                        override fun onFound(postcard: Postcard?) {
+                                            Logger.e("onComplete")
+                                        }
 
-                                override fun onInterrupt(postcard: Postcard?) {
-                                    Logger.e("onComplete")
-                                }
+                                        override fun onInterrupt(postcard: Postcard?) {
+                                            Logger.e("onComplete")
+                                        }
 
-                                override fun onArrival(postcard: Postcard?) {
-                                    Logger.e("onComplete")
-                                }
-                            })
+                                        override fun onArrival(postcard: Postcard?) {
+                                            Logger.e("onComplete")
+                                        }
+                                    })
                         },
                         onDisposable = {
                             addDisposable(it)
@@ -57,11 +57,6 @@ class SplashActivity : BaseActivity(), RxManage {
                         onNext = {
 
 
-                            ImageLoader.getInstance().showImage(this,
-                                    ImageLoaderOptions
-                                            .Builder(ImageView(this), "")
-                                            .build()
-                            )
                         })
     }
 

@@ -10,31 +10,34 @@ class LoginViewModel(application: Application) : BaseViewModel(application) {
 
     val user by lazy {
         MutableLiveData<User>()
+
     }
+
+    val name = "1"
 
     fun start() {
 //        repository = EntryRepository()
     }
 
-  /*  fun login(account: String, psw: String): Disposable {
-        return Observable.create<Boolean> {
-            if (account.isEmpty() || psw.isEmpty()) {
-                it.onError(Throwable("账号密码不能为空"))
-            }
-            it.onNext(true)
-            it.onComplete()
-        }
-                .flatMap {
-//                    repository.login(account, psw)
-                }
-                .compose(RxUtils.progressTransformer(showProgress))
-                .customSubscribeBy(
-                        onError = {
-                            message.value = it.customMessage
-                            Logger.e(it.message)
-                        },
-                        onNext = {
-                            user.value = it.data
-                        })
-    }*/
+    /*  fun login(account: String, psw: String): Disposable {
+          return Observable.create<Boolean> {
+              if (account.isEmpty() || psw.isEmpty()) {
+                  it.onError(Throwable("账号密码不能为空"))
+              }
+              it.onNext(true)
+              it.onComplete()
+          }
+                  .flatMap {
+  //                    repository.login(account, psw)
+                  }
+                  .compose(RxUtils.progressTransformer(showProgress))
+                  .customSubscribeBy(
+                          onError = {
+                              message.value = it.customMessage
+                              Logger.e(it.message)
+                          },
+                          onNext = {
+                              user.value = it.data
+                          })
+      }*/
 }

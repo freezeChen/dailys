@@ -4,7 +4,7 @@ public interface ConnectListener {
 
     public void onSuccess();
 
-    public void onFailed();
+    public void onFailed(String msg);
 
     public void onReconnect();
 }

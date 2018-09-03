@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.frozen.daily.imsdk.R;
 import com.frozen.imsdk.model.IMConnect;
+import com.frozen.imsdk.model.IMMessage;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -21,7 +22,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     public NettyClientHandler(NettyClient nettyClient) {
         super();
         this.nettyClient = nettyClient;
-        this.mConnectObservable =
+        this.mConnectObservable = ConnectObservable.getInstance();
         this.mMessageObservable = ConversationObservable.getInstance();
     }
 
@@ -30,24 +31,16 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
         System.out.println("read");
         ByteBuf strMsg = (ByteBuf) msg;
-        byte[] decode = MessageDecoder.decode(strMsg.copy());
-
-
-        System.out.println(new String(decode));
-//        byte[] bytes = new byte[strMsg.readableBytes()];
-//        strMsg.readBytes(bytes);
-//
-//
-//        System.out.println("read : " + new String(bytes));
-//
-
+        IMMessage decode = MessageDecoder.decode(strMsg.copy());
+        mMessageObservable.notifyObservers(decode);
+        System.out.println(decode.toString());
         super.channelRead(ctx, msg);
     }
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         System.out.println("ClientHandler" + "-------重连回调------");
-        observable.notifyObservers(new IMConnect(IMConnect.CONNECT_RECONNECT));
+        mConnectObservable.notifyObservers(new IMConnect(IMConnect.CONNECT_SUCCESS));
         nettyClient.setConnectState(NettyClient.DISCONNECTION);
         nettyClient.connect();
         super.channelInactive(ctx);
@@ -61,7 +54,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        observable.notifyObservers(new IMConnect(IMConnect.CONNECT_SUCCESS));
+        mConnectObservable.notifyObservers(new IMConnect(IMConnect.CONNECT_SUCCESS));
         System.out.println("NettyClientHandler" + "=====连接成功回调=====");
         nettyClient.setConnectState(NettyClient.CONNECTED);
         super.channelActive(ctx);
@@ -74,7 +67,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        observable.notifyObservers(new IMConnect(IMConnect.CONNECT_FAILED));
+        mConnectObservable.notifyObservers(new IMConnect(IMConnect.CONNECT_FAILED));
         System.out.println("NettyClientHandl" + "网络异常!");
         super.exceptionCaught(ctx, cause);
         ctx.close();

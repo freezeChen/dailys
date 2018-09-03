@@ -1,5 +1,9 @@
 package com.frozen.imsdk;
 
+import com.frozen.imsdk.listener.ConnectListener;
+import com.frozen.imsdk.manage.IMManage;
+import com.frozen.imsdk.model.IMMessage;
+
 import org.junit.Test;
 
 import java.io.IOException;
@@ -43,6 +47,33 @@ public class ExampleUnitTest {
         }
     }
 
+
+    @Test
+    public void t() {
+
+        IMManage.getInstance().setOnConnectListener(new ConnectListener() {
+            @Override
+            public void onSuccess() {
+                System.out.println("onsuccess");
+            }
+
+            @Override
+            public void onFailed(String msg) {
+                System.out.println("onfailed");
+            }
+
+            @Override
+            public void onReconnect() {
+                System.out.println("onreconnect");
+            }
+        });
+
+    }
+
+
+
+
 }
+
 
 

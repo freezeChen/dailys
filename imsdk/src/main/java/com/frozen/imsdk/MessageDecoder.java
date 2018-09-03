@@ -1,6 +1,7 @@
 package com.frozen.imsdk;
 
 import com.frozen.daily.imsdk.R;
+import com.frozen.imsdk.model.IMMessage;
 
 import java.net.PasswordAuthentication;
 
@@ -12,24 +13,16 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 public class MessageDecoder extends ChannelInboundHandlerAdapter {
-    private static int PackSize = 4;
-    private static int HeaderSize = 2;
-    private static int VerSize = 2;
-    private static int OperationSize = 4;
-    private static int SeqIdSize = 4;
+    private static int PackSize = 4;       //总长度
+    private static int HeaderSize = 2;      //头部协议长度
+    private static int VerSize = 2;         //版本信息长度
+    private static int OperationSize = 4;   //操作类型长度
+    private static int SeqIdSize = 4;       //
     private static int RawHeaderSize = PackSize + HeaderSize + VerSize + OperationSize + SeqIdSize;
 
-//    private int packLen;
-//    private int rawHeader;
-//    private int version;
-//    private int operation;
-//    private int seqId;
 
-
-    public static byte[] decode(ByteBuf buf) {
+    public static IMMessage decode(ByteBuf buf) {
         ByteBuf rawHead = buf.readBytes(RawHeaderSize);
-//        byte[] bytes = new byte[rawHead.readableBytes()];
-//        rawHead.readBytes(bytes);
 
         byte[] packLen = new byte[PackSize];
         byte[] rawHeader = new byte[HeaderSize];
@@ -44,37 +37,18 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
         rawHead.readBytes(seqId);
 
 
-
         System.out.println(byteArrayToInt(packLen));
         System.out.println(byteArrayToInt(rawHeader));
         System.out.println(byteArrayToInt(version));
         System.out.println(byteArrayToInt(operation));
         System.out.println(byteArrayToInt(seqId));
 
-//        ByteBuf bodyBuf = buf.readBytes();
+
         System.out.println(byteArrayToInt(packLen) - byteArrayToInt(rawHeader));
         byte[] bodyBytes = new byte[byteArrayToInt(packLen) - byteArrayToInt(rawHeader)];
         buf.readBytes(bodyBytes);
 
         System.out.println(new String(bodyBytes));
-
-
-////        System.arraycopy(bytes, 0, packLen, 0, PackSize);
-//        index += PackSize;
-//        System.out.println(new String(bytes, index, HeaderSize));
-//
-////        System.arraycopy(bytes, PackSize, rawHeader, index, index + HeaderSize);
-//        index += HeaderSize;
-//        System.out.println(new String(bytes, index, VerSize));
-////        System.arraycopy(bytes, 0, version, index, index + VerSize);
-//        index += VerSize;
-//        System.out.println(new String(bytes, index, OperationSize));
-////        System.arraycopy(bytes, 0, operation, index, index + OperationSize);
-//        index += OperationSize;
-//        System.out.println(new String(bytes, index, SeqIdSize));
-////        System.arraycopy(bytes, 0, seqId, index, index + SeqIdSize);
-//        index += OperationSize;
-//
 
 
         System.out.println(new String(packLen) + "\n"
@@ -86,8 +60,15 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
 //        System.arraycopy(bytes,0,);
 
 
+        IMMessage message = new IMMessage();
+
+        message.setType(new String(operation));
+        message.setId(new String(seqId));
+        message.setMessage(new String(bodyBytes));
+
+
 //        System.out.println(new String(bytes));
-        return bodyBytes;
+        return message;
     }
 
     public static ByteBuf encode(String msg) {
@@ -103,7 +84,7 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
 
         buffer.writeBytes(IntToByte2Array(2));
 
-        buffer.writeBytes(IntToByte4Array(4));
+        buffer.writeBytes(IntToByte4Array(0000));
 
         buffer.writeBytes(IntToByte4Array(12));
 
@@ -142,8 +123,8 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
     }
 
     public static int byteArrayToInt(byte[] b) {
-        int value= 0;
-        for(int i=0; i<b.length; i++)
+        int value = 0;
+        for (int i = 0; i < b.length; i++)
             value = (value << 8) | b[i];
         return value;
 

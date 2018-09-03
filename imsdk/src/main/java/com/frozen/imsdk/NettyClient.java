@@ -58,7 +58,6 @@ public class NettyClient {
         setConnectState(DISCONNECTION);
         bootstrap = new Bootstrap();
         group = new NioEventLoopGroup();
-//        imConnect = new IMConnect();
         bootstrap.group(group);
         bootstrap.channel(NioSocketChannel.class);
         bootstrap.option(ChannelOption.TCP_NODELAY, true);
@@ -69,10 +68,6 @@ public class NettyClient {
                 ChannelPipeline pipeline = socketChannel.pipeline();
                 //心跳包的添加
                 pipeline.addLast("logging", new LoggingHandler(LogLevel.INFO));
-//                pipeline.addLast("idleStateHandler", new IdleStateHandler(60, 60, 0));
-//对消息格式进行验证（MessageDecoder为自定义的解析验证类因协议规定而定）
-//                pipeline.addLast("messageDecoder", new MessageDecoder());
-
                 pipeline.addLast("clientHandler", new NettyClientHandler(nettyClient ));
             }
         });

@@ -41,7 +41,7 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:singleLine="true"
-                    />
+                    android:text="@{viewmodel.name}" />
 
                 <EditText
                     android:id="@+id/password"
@@ -55,7 +55,7 @@
                     android:maxLines="1"
                     android:singleLine="true" />
 
-                <androidx.appcompat.widget.AppCompatButton
+                <android.support.v7.widget.AppCompatButton
                     android:id="@+id/email_sign_in_button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -65,10 +65,9 @@
                     android:background="#ff668c"
                     android:clickable="true"
                     android:gravity="center"
-                    android:shadowColor="#000"
-                    android:shadowRadius="@integer/qmui_anim_duration"
+                    android:shadowDx="20dp"
                     android:text="登陆"
-                    android:textAppearance="?android:attr/textAppearanceLargeInverse"
+                    android:textColor="#fff"
                     android:textStyle="bold" />
 
             </LinearLayout>
