@@ -3,7 +3,6 @@ package com.frozen.daily.base.component.service
 import android.app.Service
 import android.content.Intent
 import android.os.IBinder
-import com.frozen.daily.base.component.im.IMManager
 import com.frozen.daily.base.util.RxManage
 import com.orhanobut.logger.Logger
 import io.reactivex.disposables.CompositeDisposable

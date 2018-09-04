@@ -36,7 +36,7 @@ public class NettyClient {
     private ChannelFuture channelFuture = null;
     private IMConnect imConnect = null;
     private static NettyClient nettyClient = null;
-    private ArrayBlockingQueue<String> sendQueue = new ArrayBlockingQueue<String>(5000);
+    private ArrayBlockingQueue<ByteBuf> sendQueue = new ArrayBlockingQueue<ByteBuf>(5000);
     private boolean sendFlag = true;
     private SendThread sendThread = new SendThread();
 
@@ -68,7 +68,7 @@ public class NettyClient {
                 ChannelPipeline pipeline = socketChannel.pipeline();
                 //心跳包的添加
                 pipeline.addLast("logging", new LoggingHandler(LogLevel.INFO));
-                pipeline.addLast("clientHandler", new NettyClientHandler(nettyClient ));
+                pipeline.addLast("clientHandler", new NettyClientHandler(nettyClient));
             }
         });
         startSendThread();
@@ -91,7 +91,7 @@ public class NettyClient {
         flag = false;
     }
 
-    public void insertCmd(String cmd) {
+    public void insertCmd(ByteBuf cmd) {
         sendQueue.offer(cmd);
     }
 
@@ -151,11 +151,9 @@ public class NettyClient {
         public void run() {
             while (sendFlag) {
                 try {
-                    String cmd = sendQueue.take();
+                    ByteBuf cmd = sendQueue.take();
                     if (channelFuture != null && cmd != null) {
-
-                        ByteBuf byteBuf = MessageDecoder.encode(cmd);
-                        channelFuture.channel().writeAndFlush(byteBuf);
+                        channelFuture.channel().writeAndFlush(cmd);
                     }
                 } catch (InterruptedException e) {
                     sendThread.interrupt();

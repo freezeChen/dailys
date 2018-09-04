@@ -20,6 +20,14 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
     private static int SeqIdSize = 4;       //
     private static int RawHeaderSize = PackSize + HeaderSize + VerSize + OperationSize + SeqIdSize;
 
+    /**
+     * 登录认证
+     */
+    public static int OPER_CHECK = 0000;
+    /**
+     * 信息发送
+     */
+    public static int OPER_MSG = 0001;
 
     public static IMMessage decode(ByteBuf buf) {
         ByteBuf rawHead = buf.readBytes(RawHeaderSize);
@@ -71,23 +79,28 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
         return message;
     }
 
-    public static ByteBuf encode(String msg) {
+    /**
+     * @param Oper 操作类型
+     * @param msg  信息
+     * @return
+     */
+    public static ByteBuf encode(int Oper, String msg) {
 
         byte[] msgBytes = msg.getBytes();
-//        (msgBytes.length+16);
-
 
         ByteBuf buffer = Unpooled.buffer();
+
+        //总长度
         buffer.writeBytes(IntToByte4Array((msgBytes.length + 16)));
-
+        //头部协议长度
         buffer.writeBytes(IntToByte2Array(RawHeaderSize));
-
+        //版本信息
         buffer.writeBytes(IntToByte2Array(2));
-
-        buffer.writeBytes(IntToByte4Array(0000));
-
+        //炒作类型
+        buffer.writeBytes(IntToByte4Array(Oper));
+        //id
         buffer.writeBytes(IntToByte4Array(12));
-
+        //内容
         buffer.writeBytes(msgBytes);
 
 

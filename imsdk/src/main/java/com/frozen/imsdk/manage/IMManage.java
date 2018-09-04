@@ -1,14 +1,18 @@
 package com.frozen.imsdk.manage;
 
+import android.os.Build;
 import android.os.Message;
 
 import com.frozen.imsdk.ConnectObservable;
 import com.frozen.imsdk.ConversationObservable;
+import com.frozen.imsdk.MessageDecoder;
+import com.frozen.imsdk.NettyClient;
 import com.frozen.imsdk.listener.ConnectListener;
 import com.frozen.imsdk.listener.ConversationListener;
 import com.frozen.imsdk.model.IMConnect;
 import com.frozen.imsdk.model.IMConversation;
 import com.frozen.imsdk.model.IMMessage;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +21,14 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
+import io.netty.buffer.ByteBuf;
+
 public class IMManage implements Observer {
 
     private ConnectListener mConnectListener;
     private ConversationListener mConversationListener;
 
-    private Map<String, IMConversation> mConversationList = new HashMap<>();
+    private Map<Integer, IMConversation> mConversationList = new HashMap<>();
 
 
     private IMManage() {
@@ -40,6 +46,42 @@ public class IMManage implements Observer {
 
     public List<Message> getConversation() {
         return null;
+    }
+
+    /**
+     * 初始化连接
+     */
+    public void init() {
+        NettyClient.getInstance().connect();
+    }
+
+    public void login(int id) {
+        ByteBuf byteBuf = MessageDecoder.encode(MessageDecoder.OPER_CHECK, String.valueOf(id));
+        NettyClient.getInstance().insertCmd(byteBuf);
+    }
+
+
+    public void sendMessage(IMMessage message) {
+        Gson gson = new Gson();
+        String json = gson.toJson(message);
+        ByteBuf byteBuf = MessageDecoder.encode(MessageDecoder.OPER_MSG, json);
+        NettyClient.getInstance().insertCmd(byteBuf);
+    }
+
+    private void setMessage(IMMessage message) {
+
+
+        if (mConversationList.containsKey(message.getId())) {
+            mConversationList.get(message.getId()).setMessage(message);
+        } else {
+            IMConversation conversation = new IMConversation();
+            conversation.setMessage(message);
+            mConversationList.put(message.getId(), conversation);
+        }
+
+        if (mConversationListener != null) {
+            mConversationListener.newMessage(message);
+        }
     }
 
 
@@ -65,7 +107,6 @@ public class IMManage implements Observer {
 
             //消息
         } else if (observable instanceof ConversationObservable) {
-
             setMessage((IMMessage) o);
         }
     }
@@ -77,21 +118,6 @@ public class IMManage implements Observer {
 
     public void setOnConversationListener(ConversationListener mConversationListener) {
         this.mConversationListener = mConversationListener;
-    }
-
-
-    private void setMessage(IMMessage message) {
-        if (mConversationList.containsKey(message.getId())) {
-            mConversationList.get(message.getId()).setMessage(message);
-        } else {
-            IMConversation conversation = new IMConversation();
-            conversation.setMessage(message);
-            mConversationList.put(message.getId(), conversation);
-        }
-
-        if (mConversationListener != null) {
-            mConversationListener.newMessage(message);
-        }
     }
 
     public void destroy() {

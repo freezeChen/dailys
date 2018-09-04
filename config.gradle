@@ -84,7 +84,7 @@ ext {
             "baseAdapter"             : "com.github.CymChad:BaseRecyclerViewAdapterHelper:${version.baseAdaper_version}",
             "eventbus"                : "org.greenrobot:eventbus:${version.eventbus_version}",
             "logger"                  : 'com.orhanobut:logger:2.1.1',
-
+            "gson"                    : 'com.google.code.gson:gson:2.6.2',
             //ARouter
             "arouter-api"             : "com.alibaba:arouter-api:${version.arouter_api}",
             "arouter-compiler"        : "com.alibaba:arouter-compiler:${version.arouter_compiler}",

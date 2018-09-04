@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.widget.ImageView
 import com.bumptech.glide.load.resource.bitmap.CircleCrop
+import io.reactivex.android.schedulers.AndroidSchedulers
 
 /**
  * Created by csc on 2018/5/14.

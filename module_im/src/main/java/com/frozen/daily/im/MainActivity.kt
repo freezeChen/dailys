@@ -1,9 +1,14 @@
 package com.frozen.daily.im
 
 
+import android.content.ComponentName
+import android.content.Context
+import android.content.Intent
+import android.content.ServiceConnection
 import android.os.Bundle
+import android.os.IBinder
 import android.support.v7.app.AppCompatActivity
-import com.frozen.daily.base.component.im.IMManager
+import com.frozen.daily.im.service.ImService
 import com.frozen.imsdk.listener.ConnectListener
 import com.frozen.imsdk.manage.IMManage
 
@@ -13,23 +18,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.im_activity_main)
 
-        IMManage.getInstance().setOnConnectListener(object : ConnectListener {
-            override fun onFailed(msg: String?) {
+        var intent = Intent(this, ImService::class.java)
 
-
+        bindService(intent, object : ServiceConnection {
+            override fun onServiceDisconnected(p0: ComponentName?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
 
-            override fun onSuccess() {
-
+            override fun onServiceConnected(p0: ComponentName?, p1: IBinder?) {
+                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
             }
+        }, Context.BIND_AUTO_CREATE);
 
-
-
-            override fun onReconnect() {
-            }
-        })
-
-
-        IMManage.getInstance().conversation
     }
 }
