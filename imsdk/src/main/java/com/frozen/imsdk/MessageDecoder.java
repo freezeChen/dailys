@@ -2,6 +2,7 @@ package com.frozen.imsdk;
 
 import com.frozen.daily.imsdk.R;
 import com.frozen.imsdk.model.IMMessage;
+import com.google.gson.Gson;
 
 import java.net.PasswordAuthentication;
 
@@ -67,12 +68,8 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
 //        byte[] detail = new byte[new string-rawHeader];
 //        System.arraycopy(bytes,0,);
 
-
-        IMMessage message = new IMMessage();
-
-        message.setType(new String(operation));
-        message.setId(new String(seqId));
-        message.setMessage(new String(bodyBytes));
+        Gson gson = new Gson();
+        IMMessage message = gson.fromJson(new String(bodyBytes), IMMessage.class);
 
 
 //        System.out.println(new String(bytes));
@@ -96,7 +93,7 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
         buffer.writeBytes(IntToByte2Array(RawHeaderSize));
         //版本信息
         buffer.writeBytes(IntToByte2Array(2));
-        //炒作类型
+        //操作类型
         buffer.writeBytes(IntToByte4Array(Oper));
         //id
         buffer.writeBytes(IntToByte4Array(12));
@@ -112,7 +109,7 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
         super.channelRead(ctx, msg);
     }
 
-    public static byte[] IntToByte4Array(int value) {
+    private static byte[] IntToByte4Array(int value) {
         byte[] src = new byte[4];
         src[0] = (byte) ((value >> 24) & 0xFF);
         src[1] = (byte) ((value >> 16) & 0xFF);
@@ -121,7 +118,7 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
         return src;
     }
 
-    public static byte[] IntToByte2Array(int value) {
+    private static byte[] IntToByte2Array(int value) {
         byte[] src = new byte[4];
         src[0] = (byte) ((value >> 24) & 0xFF);
         src[1] = (byte) ((value >> 16) & 0xFF);
@@ -135,10 +132,11 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
         return result;
     }
 
-    public static int byteArrayToInt(byte[] b) {
+    private static int byteArrayToInt(byte[] b) {
         int value = 0;
-        for (int i = 0; i < b.length; i++)
-            value = (value << 8) | b[i];
+        for (byte aB : b) {
+            value = (value << 8) | aB;
+        }
         return value;
 
     }

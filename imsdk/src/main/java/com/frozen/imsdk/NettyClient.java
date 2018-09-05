@@ -110,7 +110,8 @@ public class NettyClient {
     public void connect() {
         if (getConnectState() != CONNECTED) {
             setConnectState(CONNECTING);
-            ChannelFuture f = bootstrap.connect("127.0.0.1", 8020);
+            //192.168.10.107
+            ChannelFuture f = bootstrap.connect("192.168.10.107", 8020);
             f.addListener(listener);
         }
     }
@@ -153,9 +154,11 @@ public class NettyClient {
                 try {
                     ByteBuf cmd = sendQueue.take();
                     if (channelFuture != null && cmd != null) {
+                        System.out.println("write========");
                         channelFuture.channel().writeAndFlush(cmd);
                     }
                 } catch (InterruptedException e) {
+                    System.out.println("error" + e);
                     sendThread.interrupt();
                 }
             }

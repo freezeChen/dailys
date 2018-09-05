@@ -7,7 +7,7 @@ public class ConversationObservable extends Observable {
     private ConversationObservable() {
     }
 
-    private static volatile ConversationObservable instance;
+    private static ConversationObservable instance;
 
     public synchronized static ConversationObservable getInstance() {
         if (instance == null) {

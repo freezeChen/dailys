@@ -37,7 +37,7 @@ class IMService : Service(), RxManage {
                 Logger.e("onOpen", response)
                 mWebSocket = webSocket
                 reConnTimes = 0
-                IMManager
+
             }
 
             override fun onFailure(webSocket: WebSocket?, t: Throwable?, response: Response?) {

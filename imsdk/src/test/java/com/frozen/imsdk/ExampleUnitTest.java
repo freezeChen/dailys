@@ -7,6 +7,10 @@ import com.frozen.imsdk.model.IMMessage;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.util.Observable;
+import java.util.Observer;
+
+import io.netty.buffer.ByteBuf;
 
 import static org.junit.Assert.*;
 
@@ -16,10 +20,7 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
-    @Test
-    public void addition_isCorrect() {
-        assertEquals(4, 2 + 2);
-    }
+
 
     @Test
     public void netty() {
@@ -29,7 +30,8 @@ public class ExampleUnitTest {
             @Override
             public void run() {
                 while (true) {
-                    NettyClient.getInstance().insertCmd("我是客户端");
+                    ByteBuf s = MessageDecoder.encode(2, "我是");
+                    NettyClient.getInstance().insertCmd(s);
                     try {
                         Thread.sleep(3000);
                     } catch (InterruptedException e) {
@@ -50,7 +52,6 @@ public class ExampleUnitTest {
 
     @Test
     public void t() {
-
         IMManage.getInstance().setOnConnectListener(new ConnectListener() {
             @Override
             public void onSuccess() {
@@ -67,10 +68,69 @@ public class ExampleUnitTest {
                 System.out.println("onreconnect");
             }
         });
+        ConnectObservable.getInstance().addObserver(IMManage.getInstance());
+        IMManage.getInstance().init();
+//        IMManage.getInstance().login(23);
+        ByteBuf s = MessageDecoder.encode(0, "我是");
 
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+
+
+        }
+        NettyClient.getInstance().insertCmd(s);
+        NettyClient.getInstance().insertCmd(s);
+        NettyClient.getInstance().insertCmd(s);
+        NettyClient.getInstance().insertCmd(s);
+        NettyClient.getInstance().insertCmd(s);
+
+
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        NettyClient.getInstance().insertCmd(s.copy());
+//        NettyClient.getInstance().insertCmd(s.copy());
+//        NettyClient.getInstance().insertCmd(s.copy());
     }
 
+    @Test
+    public void ob() {
 
+        Observer observer = new Observer() {
+            @Override
+            public void update(Observable observable, Object o) {
+                System.out.println("uuuuuuuuu");
+            }
+        };
+
+        Observable observable = new Observable() {
+            @Override
+            protected synchronized void setChanged() {
+                super.setChanged();
+            }
+        };
+//
+        observable.addObserver(observer);
+
+        observable.notifyObservers("fssss");
+
+        boolean b = observable.hasChanged();
+        System.out.println(b);
+
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+//        ConnectObservable.getInstance().addObserver(observer);
+//
+//        ConnectObservable.getInstance().notifyObservers(123);
+//        ConnectObservable.getInstance().notify();
+
+    }
 
 
 }

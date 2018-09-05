@@ -37,6 +37,12 @@ class MessageListFragment : BaseFragment(), AdapterHelp, SwipeRefreshLayout.OnRe
         _mActivity.getProgressDialog()
     }
 
+    companion object {
+        fun newInstance(): BaseFragment {
+            return MessageListFragment()
+        }
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.im_fragment_message_list, container, false)
         return mBinding.root

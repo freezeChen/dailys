@@ -1,6 +1,11 @@
 package com.frozen.imsdk.model;
 
 public class IMMessage {
+    public IMMessage(int id, int sid, String msg) {
+        this.id = id;
+        this.sid = sid;
+        this.msg = msg;
+    }
 
     private int id;
     private int sid;

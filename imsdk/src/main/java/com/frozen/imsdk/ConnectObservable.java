@@ -1,5 +1,7 @@
 package com.frozen.imsdk;
 
+import com.frozen.imsdk.model.IMConnect;
+
 import java.util.Observable;
 
 public class ConnectObservable extends Observable {
@@ -15,5 +17,11 @@ public class ConnectObservable extends Observable {
             instance = new ConnectObservable();
         }
         return instance;
+    }
+
+    public void change(int state) {
+        notifyObservers(new IMConnect(state));
+        setChanged();
+
     }
 }

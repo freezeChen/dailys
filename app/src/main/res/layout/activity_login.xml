@@ -65,7 +65,7 @@
                     android:background="#ff668c"
                     android:clickable="true"
                     android:gravity="center"
-                    android:shadowDx="20dp"
+                    android:shadowDx="20"
                     android:text="登陆"
                     android:textColor="#fff"
                     android:textStyle="bold" />

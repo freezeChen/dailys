@@ -17,12 +17,13 @@ import io.netty.channel.ChannelOutboundBuffer;
 public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     private NettyClient nettyClient = null;
     private Observable mMessageObservable = null;
-    private Observable mConnectObservable = null;
+    private ConnectObservable mConnectObservable = null;
 
     public NettyClientHandler(NettyClient nettyClient) {
         super();
         this.nettyClient = nettyClient;
         this.mConnectObservable = ConnectObservable.getInstance();
+        System.out.println("handler");
         this.mMessageObservable = ConversationObservable.getInstance();
     }
 
@@ -39,8 +40,9 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
+
         System.out.println("ClientHandler" + "-------重连回调------");
-        mConnectObservable.notifyObservers(new IMConnect(IMConnect.CONNECT_SUCCESS));
+        mConnectObservable.change(IMConnect.CONNECT_RECONNECT);
         nettyClient.setConnectState(NettyClient.DISCONNECTION);
         nettyClient.connect();
         super.channelInactive(ctx);
@@ -54,7 +56,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelActive(ChannelHandlerContext ctx) throws Exception {
-        mConnectObservable.notifyObservers(new IMConnect(IMConnect.CONNECT_SUCCESS));
+        mConnectObservable.change(IMConnect.CONNECT_SUCCESS);
         System.out.println("NettyClientHandler" + "=====连接成功回调=====");
         nettyClient.setConnectState(NettyClient.CONNECTED);
         super.channelActive(ctx);
@@ -67,7 +69,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
-        mConnectObservable.notifyObservers(new IMConnect(IMConnect.CONNECT_FAILED));
+        mConnectObservable.change(IMConnect.CONNECT_FAILED);
         System.out.println("NettyClientHandl" + "网络异常!");
         super.exceptionCaught(ctx, cause);
         ctx.close();

@@ -1,6 +1,5 @@
 package com.frozen.imsdk.manage;
 
-import android.os.Build;
 import android.os.Message;
 
 import com.frozen.imsdk.ConnectObservable;
@@ -14,7 +13,6 @@ import com.frozen.imsdk.model.IMConversation;
 import com.frozen.imsdk.model.IMMessage;
 import com.google.gson.Gson;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +30,7 @@ public class IMManage implements Observer {
 
 
     private IMManage() {
+        System.out.println("addobserver");
         ConversationObservable.getInstance().addObserver(this);
     }
 
@@ -52,6 +51,7 @@ public class IMManage implements Observer {
      * 初始化连接
      */
     public void init() {
+        System.out.println("immanage init");
         NettyClient.getInstance().connect();
     }
 
@@ -64,7 +64,11 @@ public class IMManage implements Observer {
     public void sendMessage(IMMessage message) {
         Gson gson = new Gson();
         String json = gson.toJson(message);
-        ByteBuf byteBuf = MessageDecoder.encode(MessageDecoder.OPER_MSG, json);
+        System.out.println(json);
+
+
+        ByteBuf byteBuf = MessageDecoder.encode(2, json);
+
         NettyClient.getInstance().insertCmd(byteBuf);
     }
 
@@ -87,7 +91,7 @@ public class IMManage implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-
+        System.out.println("update");
         //连接信息
         if (observable instanceof ConnectObservable) {
             if (o instanceof IMConnect && mConnectListener != null) {

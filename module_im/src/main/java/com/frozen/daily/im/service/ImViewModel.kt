@@ -38,7 +38,7 @@ class ImViewModel(application: Application) : AndroidViewModel(application) {
         }
 
         IMManage.getInstance().init()
-        IMManage.getInstance().login(123)
+//        IMManage.getInstance().login(123)
     }
 
 
