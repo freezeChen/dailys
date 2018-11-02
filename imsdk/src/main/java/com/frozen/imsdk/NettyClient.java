@@ -111,7 +111,7 @@ public class NettyClient {
         if (getConnectState() != CONNECTED) {
             setConnectState(CONNECTING);
             //192.168.10.107
-            ChannelFuture f = bootstrap.connect("192.168.10.107", 8020);
+            ChannelFuture f = bootstrap.connect("127.0.0.1", 8020);
             f.addListener(listener);
         }
     }

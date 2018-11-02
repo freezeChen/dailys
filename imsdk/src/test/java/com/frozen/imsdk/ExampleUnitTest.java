@@ -12,8 +12,6 @@ import java.util.Observer;
 
 import io.netty.buffer.ByteBuf;
 
-import static org.junit.Assert.*;
-
 /**
  * Example local unit test, which will execute on the development machine (host).
  *
@@ -56,6 +54,7 @@ public class ExampleUnitTest {
             @Override
             public void onSuccess() {
                 System.out.println("onsuccess");
+                IMManage.getInstance().login(23);
             }
 
             @Override
@@ -71,19 +70,18 @@ public class ExampleUnitTest {
         ConnectObservable.getInstance().addObserver(IMManage.getInstance());
         IMManage.getInstance().init();
 //        IMManage.getInstance().login(23);
-        ByteBuf s = MessageDecoder.encode(0, "我是");
 
-        try {
-            Thread.sleep(3000);
-        } catch (InterruptedException e) {
+//
+//        try {
+//            Thread.sleep(3000);
+//        } catch (InterruptedException e) {
+//        }
+//
+//        IMManage.getInstance().login(23);
+//
+//
+//        IMManage.getInstance().sendMessage(new IMMessage(23,3,"我是消息啊"));
 
-
-        }
-        NettyClient.getInstance().insertCmd(s);
-        NettyClient.getInstance().insertCmd(s);
-        NettyClient.getInstance().insertCmd(s);
-        NettyClient.getInstance().insertCmd(s);
-        NettyClient.getInstance().insertCmd(s);
 
 
         try {
@@ -91,46 +89,10 @@ public class ExampleUnitTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-//        NettyClient.getInstance().insertCmd(s.copy());
-//        NettyClient.getInstance().insertCmd(s.copy());
-//        NettyClient.getInstance().insertCmd(s.copy());
-    }
-
-    @Test
-    public void ob() {
-
-        Observer observer = new Observer() {
-            @Override
-            public void update(Observable observable, Object o) {
-                System.out.println("uuuuuuuuu");
-            }
-        };
-
-        Observable observable = new Observable() {
-            @Override
-            protected synchronized void setChanged() {
-                super.setChanged();
-            }
-        };
-//
-        observable.addObserver(observer);
-
-        observable.notifyObservers("fssss");
-
-        boolean b = observable.hasChanged();
-        System.out.println(b);
-
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-//        ConnectObservable.getInstance().addObserver(observer);
-//
-//        ConnectObservable.getInstance().notifyObservers(123);
-//        ConnectObservable.getInstance().notify();
 
     }
+
+
 
 
 }

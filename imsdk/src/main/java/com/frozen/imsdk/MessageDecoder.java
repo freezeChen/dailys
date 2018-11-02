@@ -24,11 +24,11 @@ public class MessageDecoder extends ChannelInboundHandlerAdapter {
     /**
      * 登录认证
      */
-    public static int OPER_CHECK = 0000;
+    public static final int OPER_CHECK = 0000;
     /**
      * 信息发送
      */
-    public static int OPER_MSG = 0001;
+    public static final int OPER_MSG = 1;
 
     public static IMMessage decode(ByteBuf buf) {
         ByteBuf rawHead = buf.readBytes(RawHeaderSize);

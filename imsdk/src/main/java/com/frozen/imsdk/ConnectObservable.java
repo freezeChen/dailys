@@ -20,8 +20,8 @@ public class ConnectObservable extends Observable {
     }
 
     public void change(int state) {
-        notifyObservers(new IMConnect(state));
-        setChanged();
 
+        setChanged();
+        notifyObservers(new IMConnect(state));
     }
 }

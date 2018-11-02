@@ -50,7 +50,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
 
     @Override
     public void channelRegistered(ChannelHandlerContext ctx) throws Exception {
-        System.out.println("NettyClientHandl" + "registered");
+        System.out.println("NettyClientHandle" + "registered");
         super.channelRegistered(ctx);
     }
 
@@ -70,7 +70,7 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
     @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
         mConnectObservable.change(IMConnect.CONNECT_FAILED);
-        System.out.println("NettyClientHandl" + "网络异常!");
+        System.out.println("NettyClientHandle" + "网络异常!");
         super.exceptionCaught(ctx, cause);
         ctx.close();
     }

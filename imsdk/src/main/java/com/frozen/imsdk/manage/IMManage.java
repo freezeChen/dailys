@@ -30,7 +30,6 @@ public class IMManage implements Observer {
 
 
     private IMManage() {
-        System.out.println("addobserver");
         ConversationObservable.getInstance().addObserver(this);
     }
 
@@ -40,7 +39,7 @@ public class IMManage implements Observer {
 
 
     static class Inner {
-        public static IMManage INSTANCE = new IMManage();
+        static IMManage INSTANCE = new IMManage();
     }
 
     public List<Message> getConversation() {
@@ -67,7 +66,7 @@ public class IMManage implements Observer {
         System.out.println(json);
 
 
-        ByteBuf byteBuf = MessageDecoder.encode(2, json);
+        ByteBuf byteBuf = MessageDecoder.encode(MessageDecoder.OPER_MSG, json);
 
         NettyClient.getInstance().insertCmd(byteBuf);
     }
@@ -91,7 +90,6 @@ public class IMManage implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
-        System.out.println("update");
         //连接信息
         if (observable instanceof ConnectObservable) {
             if (o instanceof IMConnect && mConnectListener != null) {
