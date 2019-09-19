@@ -14,13 +14,10 @@ android {
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
+
+        buildConfigField 'String', 'BASE_URL', '"http://api.frozens.vip/"'
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-        }
     }
 
 
@@ -28,6 +25,36 @@ android {
     dataBinding {
         enabled = true
     }
+
+
+
+    buildTypes {
+
+        debug {
+            minifyEnabled false
+            buildConfigField 'boolean', 'DEBUG_MODE', 'true'
+
+            ndk {
+                abiFilters "armeabi-v7a", "x86"
+            }
+        }
+
+
+
+        release {
+            minifyEnabled false
+            buildConfigField 'boolean', 'DEBUG_MODE', 'false'
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            ndk {
+                abiFilters "armeabi-v7a"
+            }
+        }
+    }
+
+
+
+
 }
 
 

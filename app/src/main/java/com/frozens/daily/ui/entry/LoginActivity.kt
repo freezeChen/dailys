@@ -1,16 +1,20 @@
 package com.frozens.daily.ui.entry
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.os.Bundle
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import com.frozens.daily.R
+import com.frozens.daily.base.BaseActivity
+import com.frozens.daily.component.network.Api
 import com.frozens.daily.databinding.ActivityLoginBinding
+import com.frozens.daily.ui.MainActivity
+import com.frozens.daily.utils.RxUtils
+import com.frozens.daily.utils.extensions.customSubscribeBy
 import com.frozens.daily.utils.extensions.toast
-import kotlinx.android.synthetic.main.activity_login.*
 
-class LoginActivity : AppCompatActivity() {
+class LoginActivity : BaseActivity() {
     lateinit var mBinding: ActivityLoginBinding
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +27,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
 
-    fun login() {
-
+    private fun login() {
         val account = mBinding.editAccount.text
         val psw = mBinding.editPsw.text
 
@@ -32,6 +35,16 @@ class LoginActivity : AppCompatActivity() {
             toast("账号或密码不能为空")
             return
         }
+
+        Api.login(account.toString(), psw.toString())
+            .compose(RxUtils.progressTransformer())
+            .customSubscribeBy(
+                onComplete = {},
+                onNext = {
+                    //                    this.startActivity()
+                    startActivity(Intent(this, MainActivity::class.java))
+                }
+            )
 
     }
 }
