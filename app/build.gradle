@@ -21,11 +21,9 @@ android {
     }
 
 
-
     dataBinding {
         enabled = true
     }
-
 
 
     buildTypes {
@@ -40,7 +38,6 @@ android {
         }
 
 
-
         release {
             minifyEnabled false
             buildConfigField 'boolean', 'DEBUG_MODE', 'false'
@@ -53,11 +50,7 @@ android {
     }
 
 
-
-
 }
-
-
 
 
 dependencies {
@@ -77,9 +70,7 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.0.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
-
-
-
+    implementation 'com.orhanobut:logger:2.1.1'
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
@@ -96,5 +87,7 @@ dependencies {
 
 
     implementation 'com.qmuiteam:qmui:1.4.0'
+
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
 
 }

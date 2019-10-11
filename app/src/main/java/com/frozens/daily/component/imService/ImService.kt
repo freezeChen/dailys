@@ -4,6 +4,8 @@ import android.app.Service
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
+import com.orhanobut.logger.Logger
+
 import okhttp3.*
 import okio.ByteString
 
@@ -11,16 +13,17 @@ import okio.ByteString
 class ImService : Service() {
     lateinit var mOkHttpClient: OkHttpClient
     lateinit var mSocket: WebSocket
-
+    private var mIsOnline = false
 
     val mListener = object : WebSocketListener() {
         override fun onOpen(webSocket: WebSocket, response: Response) {
             super.onOpen(webSocket, response)
-
+            Logger.i("onOpen")
         }
 
         override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
             super.onFailure(webSocket, t, response)
+            Logger.i("onFailure${t.message}")
         }
 
         override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
@@ -55,8 +58,21 @@ class ImService : Service() {
 
 
     override fun onBind(intent: Intent?): IBinder? {
+
+
         return Binder()
     }
+
+
+
+
+
+
+    private heartbeat()
+    {
+
+    }
+
 
     override fun onUnbind(intent: Intent?): Boolean {
         return super.onUnbind(intent)

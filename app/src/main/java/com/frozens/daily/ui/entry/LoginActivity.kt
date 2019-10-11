@@ -7,7 +7,7 @@ import com.frozens.daily.R
 import com.frozens.daily.base.BaseActivity
 import com.frozens.daily.component.network.Api
 import com.frozens.daily.databinding.ActivityLoginBinding
-import com.frozens.daily.ui.MainActivity
+import com.frozens.daily.ui.main.MainActivity
 import com.frozens.daily.utils.RxUtils
 import com.frozens.daily.utils.extensions.customSubscribeBy
 import com.frozens.daily.utils.extensions.toast
@@ -19,7 +19,6 @@ class LoginActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
-        setContentView(R.layout.activity_login)
 
         mBinding.btnLogin.setOnClickListener {
             login()
@@ -41,7 +40,6 @@ class LoginActivity : BaseActivity() {
             .customSubscribeBy(
                 onComplete = {},
                 onNext = {
-                    //                    this.startActivity()
                     startActivity(Intent(this, MainActivity::class.java))
                 }
             )

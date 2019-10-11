@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+
+
+    <color name="half_transparent">#8000</color>
+    <color name="status_bar_color">#ffffff</color>
+
+    <color name="color_theme">#29B6F6</color>
+
+    <color name="color_my_line">#dde6e6</color>
 </resources>
