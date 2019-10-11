@@ -64,12 +64,7 @@ class ImService : Service() {
     }
 
 
-
-
-
-
-    private heartbeat()
-    {
+    private fun heartbeat() {
 
     }
 
