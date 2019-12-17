@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentStatePagerAdapter
 import com.frozens.daily.base.BaseFragment
 
 
-class MainAdapter(fm:FragmentManager, val fragments:Array<BaseFragment>) :FragmentPagerAdapter(fm){
+class MainAdapter(fm:FragmentManager, private val fragments:Array<BaseFragment>) :FragmentStatePagerAdapter(fm){
 
     override fun getItem(position: Int): Fragment {
         return fragments[position]

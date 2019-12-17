@@ -12,13 +12,17 @@ import com.frozens.daily.component.AdapterLoadHelp
 
 import com.frozens.daily.R
 import com.frozens.daily.base.BaseFragment
+import com.frozens.daily.component.EventBusSingleton
+import com.frozens.daily.component.imService.event.MsgEvent
 import com.frozens.daily.databinding.FragmentMessageBinding
 import com.frozens.daily.entity.Message
 import com.frozens.daily.ui.message.adapter.MessageAdapter
 import com.frozens.daily.utils.RxUtils
 import com.frozens.daily.utils.extensions.customSubscribeBy
+import com.orhanobut.logger.Logger
 import io.reactivex.Observable
-import kotlinx.android.synthetic.main.message_list_item.*
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class MessageFragment : BaseFragment(), AdapterLoadHelp, SwipeRefreshLayout.OnRefreshListener {
 
@@ -46,6 +50,7 @@ class MessageFragment : BaseFragment(), AdapterLoadHelp, SwipeRefreshLayout.OnRe
         savedInstanceState: Bundle?
     ): View? {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_message, container, false)
+        EventBusSingleton.getInstance().register(this)
         return mBinding.root
     }
 
@@ -68,18 +73,20 @@ class MessageFragment : BaseFragment(), AdapterLoadHelp, SwipeRefreshLayout.OnRe
 
     override fun getDataInfo(page: Int, lastData: Any?) {
 
-        Observable.just(arrayListOf(
-            Message(12, "小明", "hello", "15:32", "99+"),
-            Message(12, "小明", "hello", "15:32", "99+"),
-            Message(12, "小明", "hello", "15:32", "99+"),
-            Message(12, "小明", "hello", "15:32", "99+"),
-            Message(12, "小明", "hello", "15:32", "99+"),
-            Message(12, "小明", "hello", "15:32", "99+"),
-            Message(12, "小明", "hello", "15:32", "99+"),
-            Message(12, "小明", "hello", "15:32", "99+"),
-            Message(12, "小明", "hello", "15:32", "99+"),
-            Message(12, "小明", "hello", "15:32", "99+")
-        ))
+        Observable.just(
+            arrayListOf(
+                Message(12, "小明", "hello", "15:32", "99+"),
+                Message(12, "小明", "hello", "15:32", "99+"),
+                Message(12, "小明", "hello", "15:32", "99+"),
+                Message(12, "小明", "hello", "15:32", "99+"),
+                Message(12, "小明", "hello", "15:32", "99+"),
+                Message(12, "小明", "hello", "15:32", "99+"),
+                Message(12, "小明", "hello", "15:32", "99+"),
+                Message(12, "小明", "hello", "15:32", "99+"),
+                Message(12, "小明", "hello", "15:32", "99+"),
+                Message(12, "小明", "hello", "15:32", "99+")
+            )
+        )
             .compose(RxUtils.progressTransformer())
             .customSubscribeBy(
                 onComplete = {
@@ -103,5 +110,15 @@ class MessageFragment : BaseFragment(), AdapterLoadHelp, SwipeRefreshLayout.OnRe
         doOnRefresh()
     }
 
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    fun event(event: MsgEvent) {
+        Logger.i(event.protocol.msg.toString())
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        EventBusSingleton.getInstance().unregister(this)
+    }
 
 }

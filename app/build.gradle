@@ -7,17 +7,18 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 29
     defaultConfig {
         applicationId "com.frozens.daily"
         minSdkVersion 21
-        targetSdkVersion 28
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
         buildConfigField 'String', 'BASE_URL', '"http://api.frozens.vip/"'
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        signingConfig signingConfigs.debug
     }
 
 
@@ -67,10 +68,10 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.1.0'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
 
-    implementation 'com.orhanobut:logger:2.1.1'
+    implementation 'com.orhanobut:logger:2.2.0'
     implementation "com.squareup.retrofit2:retrofit:$retrofit2_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit2_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit2_version"
@@ -86,8 +87,20 @@ dependencies {
     implementation "com.github.bumptech.glide:okhttp3-integration:$glide_version"
 
 
+    implementation "org.greenrobot:eventbus:${eventbus_version}"
+    kapt "org.greenrobot:eventbus-annotation-processor:${eventbus_version}"
+
+
     implementation 'com.qmuiteam:qmui:1.4.0'
 
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.47'
 
+}
+
+
+kapt {
+    generateStubs = true
+    arguments {
+        arg('eventBusIndex', 'com.frozens.daily.MyEventBusIndex')
+    }
 }

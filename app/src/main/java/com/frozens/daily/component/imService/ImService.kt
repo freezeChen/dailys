@@ -4,73 +4,110 @@ import android.app.Service
 import android.content.Intent
 import android.os.Binder
 import android.os.IBinder
+import com.frozens.daily.component.EventBusSingleton
+import com.frozens.daily.component.imService.event.ConnectStateEvent
+import com.frozens.daily.component.imService.event.MsgEvent
+import com.frozens.daily.component.netty.IMConnect
+import com.frozens.daily.component.netty.MessageDecoder
+import com.frozens.daily.component.netty.NettyClient
+import com.frozens.daily.component.netty.Protocol
+import com.frozens.daily.component.netty.observable.ConnectObservable
+import com.frozens.daily.component.netty.observable.MessageObservable
 import com.orhanobut.logger.Logger
 
-import okhttp3.*
-import okio.ByteString
+import java.util.*
+import java.util.concurrent.TimeUnit
 
 
-class ImService : Service() {
-    lateinit var mOkHttpClient: OkHttpClient
-    lateinit var mSocket: WebSocket
-    private var mIsOnline = false
+class ImService : Service(), Observer {
+    override fun update(o: Observable, arg: Any?) {
+        when (arg) {
+            is Protocol -> {
+                when (arg.protocol) {
+                    Protocol.Op_AuthReply -> {
+                        heardBeat()
+                    }
+                    else -> {
+                    }
+                }
 
-    val mListener = object : WebSocketListener() {
-        override fun onOpen(webSocket: WebSocket, response: Response) {
-            super.onOpen(webSocket, response)
-            Logger.i("onOpen")
+
+                EventBusSingleton.getInstance().post(MsgEvent(arg))
+                Logger.i("onMessage")
+            }
+            is Int -> {
+                
+                when (arg) {
+
+                    IMConnect.Status_connect_success -> {
+                        auth()
+                    }
+                    IMConnect.status_reconnect -> {
+
+                    }
+                    IMConnect.Status_connect_failed -> {
+
+                    }
+
+                    else -> {
+                    }
+                }
+
+
+
+                EventBusSingleton.getInstance().post(ConnectStateEvent(arg))
+            }
+            else -> {
+                Logger.i("${arg?.javaClass}")
+            }
         }
 
-        override fun onFailure(webSocket: WebSocket, t: Throwable, response: Response?) {
-            super.onFailure(webSocket, t, response)
-            Logger.i("onFailure${t.message}")
-        }
 
-        override fun onClosing(webSocket: WebSocket, code: Int, reason: String) {
-            super.onClosing(webSocket, code, reason)
-        }
+    }
 
-        override fun onMessage(webSocket: WebSocket, text: String) {
-            super.onMessage(webSocket, text)
-        }
-
-        override fun onMessage(webSocket: WebSocket, bytes: ByteString) {
-            super.onMessage(webSocket, bytes)
-        }
-
-        override fun onClosed(webSocket: WebSocket, code: Int, reason: String) {
-            super.onClosed(webSocket, code, reason)
-        }
+    private fun heardBeat() {
+        io.reactivex.Observable.interval(0, 5, TimeUnit.MINUTES)
+            .subscribe {
+                NettyClient.getInstance()
+                    .insertCmd(MessageDecoder.encode(Protocol.Op_Heartbeat, ""))
+            }
     }
 
 
     override fun onCreate() {
         super.onCreate()
-        mOkHttpClient = OkHttpClient.Builder().build()
 
+        MessageObservable.getInstance().addObserver(this)
+        ConnectObservable.getInstance().addObserver(this)
+        NettyClient.getInstance().connect()
 
-        val request = Request.Builder().url("ws:localhost:8080/socket").build()
-        mSocket = mOkHttpClient.newWebSocket(request, mListener)
+    }
 
-        mOkHttpClient.dispatcher().executorService().shutdown()
-
+    fun auth() {
+        Logger.i("auth")
+        NettyClient.getInstance().insertCmd(MessageDecoder.encode(Protocol.OP_AUTH, "1001"))
     }
 
 
     override fun onBind(intent: Intent?): IBinder? {
-
-
-        return Binder()
-    }
-
-
-    private fun heartbeat() {
-
+        return IMBinder()
     }
 
 
     override fun onUnbind(intent: Intent?): Boolean {
         return super.onUnbind(intent)
+    }
+
+    inner class IMBinder : Binder() {
+        fun getService(): ImService {
+            return this@ImService
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        MessageObservable.getInstance().deleteObserver(this)
+        ConnectObservable.getInstance().deleteObserver(this)
     }
 
 }
